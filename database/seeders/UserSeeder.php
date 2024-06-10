@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Models\Role;
 
 class UserSeeder extends Seeder
 {
@@ -14,10 +15,21 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        User::create([
+        $adminRole = Role::firstOrCreate(['name' => 'admin']);
+        $userRole = Role::firstOrCreate(['name' => 'pengguna_biasa']);
+
+        $admin = User::create([
             'name'      => 'AgungFathulMuhtadin',
             'email'     => 'agungfathul14@gmail.com',
             'password'  => Hash::make('qt7htrq5y7o'),
         ]);
+        $admin->assignRole($adminRole);
+
+        $user = User::create([
+            'name'      => 'RakaIndraRahmawan',
+            'email'     => 'rirahmawan@gmail.com',
+            'password'  => Hash::make('testpassword'),
+        ]);
+        $user->assignRole($userRole);
     }
 }

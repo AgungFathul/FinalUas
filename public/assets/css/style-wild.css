@@ -1,0 +1,654 @@
+/*-----------------------------------*\
+  #CUSTOM PROPERTY
+\*-----------------------------------*/
+
+:root {
+    /**
+   * colors
+   */
+
+    --bright-yellow-crayola: hsl(40, 100%, 50%);
+    --medium-turquoise: hsl(172, 48%, 59%);
+    --silver-chalice: hsl(0, 0%, 70%);
+    --eerie-black-1: hsl(0, 0%, 13%);
+    --white: hsl(0, 0%, 15%);
+    --eerie-black-3: hsl(228, 10%, 10%);
+    --raisin-black: hsl(220, 8%, 14%);
+    --granite-gray: hsl(0, 0%, 38%);
+    --sonic-silver: hsl(0, 0%, 47%);
+    --orange_50: hsla(86, 45%, 54%, 0.5);
+    --baby-powder: hsl(86, 41%, 97%);
+    --light-gray: hsl(0, 0%, 80%);
+    --orange: hsl(86, 45%, 54%);
+    --platinum: hsl(0, 0%, 91%);
+    --cultured: hsl(0, 0%, 94%);
+    --white-60: hsla(0, 0%, 100%, 0.6);
+    --white_50: hsla(0, 0%, 100%, 0.5);
+    --white_10: hsla(0, 0%, 100%, 0.1);
+    --white: hsl(0, 0%, 100%);
+    --black: hsl(0, 0%, 0%);
+    --jet: hsl(0, 0%, 18%);
+    --raisin-black-1: hsl(0, 0%, 0%);
+    --raisin-black-2: hsl(231, 12%, 12%);
+    --raisin-black-3: hsl(228, 12%, 17%);
+    --eerie-black: hsl(240, 11%, 9%);
+    --light-gray: hsl(0, 0%, 80%);
+    --platinum: hsl(0, 4%, 91%);
+    --xiketic: hsl(275, 24%, 10%);
+    --orange: hsl(31, 100%, 51%);
+    --purple: hsl(274.63deg 100% 30.31%);
+    --white: hsl(0, 0%, 100%);
+    --onyx: hsl(240, 5%, 26%);
+
+    /**
+   * typography
+   */
+
+    --ff-oswald: "Oswald", sans-serif;
+    --ff-inter: "Inter", sans-serif;
+    --ff-roboto: "Roboto", sans-serif;
+
+    --fs-1: 13rem;
+    --fs-2: 4rem;
+    --fs-3: 3.5rem;
+    --fs-4: 3rem;
+    --fs-5: 2.4rem;
+    --fs-6: 2.2rem;
+    --fs-7: 2rem;
+    --fs-8: 1.8rem;
+    --fs-9: 1.5rem;
+    --fs-10: 1.4rem;
+
+    --fw-300: 300;
+    --fw-500: 500;
+    --fw-600: 600;
+    --fw-700: 700;
+
+    /**
+   * spacing
+   */
+
+    --section-padding: 80px;
+
+    /**
+   * shadow
+   */
+
+    --card-shadow: 0 5px 20px -8px hsla(0, 0%, 0%, 0.15);
+
+    /**
+   * transition
+   */
+
+    --transition-1: 0.05s ease;
+    --transition-2: 0.25s ease;
+    --cubic-in: cubic-bezier(0.51, 0.03, 0.64, 0.28);
+    --cubic-out: cubic-bezier(0.33, 0.85, 0.4, 0.96);
+}
+
+/*-----------------------------------*\
+  #RESET
+\*-----------------------------------*/
+
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+li {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+a,
+img,
+span,
+time,
+input,
+strong,
+button,
+ion-icon {
+    display: block;
+}
+
+img {
+    height: auto;
+}
+
+ion-icon {
+    pointer-events: none;
+}
+
+input,
+button {
+    background: none;
+    border: none;
+    font: inherit;
+}
+
+input {
+    width: 100%;
+}
+
+button {
+    cursor: pointer;
+}
+
+:focus-visible {
+    outline-offset: 4px;
+}
+
+::selection {
+    background-color: var(--white_10);
+}
+
+html {
+    font-family: var(--ff-roboto);
+    color: var(--granite-gray);
+    font-size: 10px;
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: #0f161b;
+    font-size: 1.6rem;
+    line-height: 1.8;
+    overflow-x: hidden;
+}
+
+::-webkit-scrollbar {
+    width: 13px;
+}
+
+::-webkit-scrollbar-track {
+    background-color: hsl(0, 0%, 95%);
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: var(--orange);
+}
+
+/*-----------------------------------*\
+  #REUSED STYLE
+\*-----------------------------------*/
+
+.container {
+    padding-inline: 15px;
+}
+
+.h1,
+.h2 {
+    font-weight: var(--fw-300);
+}
+
+.h2,
+.h3 {
+    line-height: 1.6;
+}
+
+.h2 {
+    font-size: var(--fs-3);
+    color: var(--white);
+}
+
+.h3 {
+    font-size: var(--fs-5);
+    color: var(--white);
+}
+
+.h4 {
+    color: var(--white);
+    font-size: var(--fs-6);
+}
+
+.btn {
+    position: relative;
+    background-color: var(--btn-bg, var(--orange));
+    color: var(--white);
+    font-weight: var(--fw-600);
+    padding: 12px 32px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: var(--transition-2);
+}
+
+.btn ion-icon {
+    --ionicon-stroke-width: 55px;
+    font-size: 1.8rem;
+}
+
+.btn:not(.btn-outline)::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border: 1px solid var(--btn-bg, var(--orange));
+    transform: translate(5px, 5px);
+    transition: var(--transition-2);
+}
+
+.btn:is(:hover, :focus)::after {
+    transform: translate(0, 0);
+}
+
+.btn-secondary {
+    --btn-bg: var(--black);
+}
+
+.btn-secondary:is(:hover, :focus) {
+    --btn-bg: var(--orange);
+}
+
+.btn-outline {
+    border: 2px solid var(--white);
+    background-color: transparent;
+}
+
+.btn-black {
+    --btn-bg: var(--black);
+    color: var(--white);
+}
+
+.section {
+    padding-block: var(--section-padding);
+}
+
+.w-100 {
+    width: 100%;
+}
+
+.section-text {
+    line-height: 2;
+}
+
+.img-cover {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/*-----------------------------------*\
+  #DONATE
+\*-----------------------------------*/
+
+.donate-list {
+    display: grid;
+    gap: 60px;
+}
+
+.donate-card {
+    box-shadow: var(--card-shadow);
+}
+
+.donate-card .card-banner {
+    background-color: var(--light-gray);
+}
+
+.donate-card .card-content {
+    background-color: var(--black);
+    padding: 35px;
+}
+
+.progress-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.progress-text {
+    display: flex;
+    gap: 5px;
+    font-size: var(--fs-8);
+}
+
+.progress-text data {
+    color: var(--white);
+    font-weight: var(--fw-600);
+}
+
+.donate-card .card-title {
+    --fs-5: 2.1rem;
+}
+
+.progress-box {
+    background-color: var(--cultured);
+    border-radius: 20px;
+    margin-block: 10px 20px;
+}
+
+.progress {
+    height: 6px;
+    width: 83%;
+    background-color: var(--orange);
+    border-radius: inherit;
+}
+
+.progress-value {
+    color: var(--orange);
+    font-size: var(--fs-7);
+    font-weight: var(--fw-600);
+}
+
+.card-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 5px;
+    margin-block: 15px;
+}
+
+.donate-card .card-wrapper-text {
+    display: flex;
+    gap: 5px;
+}
+
+.donate-card .card-wrapper-text span {
+    color: var(--sonic-silver);
+    font-weight: var(--fw-500);
+}
+
+.card-wrapper-text data {
+    font-weight: var(--fw-600);
+}
+
+.card-wrapper-text .green {
+    color: var(--orange);
+}
+
+.card-wrapper-text .yellow {
+    color: var(--bright-yellow-crayola);
+}
+
+.card-wrapper-text .cyan {
+    color: var(--medium-turquoise);
+}
+
+/*-----------------------------------*\
+  #PARTNER
+\*-----------------------------------*/
+
+.partner .container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 50px;
+    margin-top: -10vh;
+}
+
+.partner-logo .color,
+.partner-logo:is(:hover, :focus) .gray {
+    display: none;
+}
+
+.partner-logo:is(:hover, :focus) .color,
+.partner-logo .gray {
+    display: block;
+}
+
+/*-----------------------------------*\
+  #EVENT
+\*-----------------------------------*/
+
+.event {
+    padding-block-end: 120px;
+}
+
+.event .section-subtitle {
+    justify-content: center;
+}
+
+.event .section-title {
+    text-align: center;
+    margin-block: 15px 50px;
+}
+
+.event-list {
+    display: grid;
+    gap: 30px;
+    margin-block-end: 70px;
+}
+
+.event-card {
+    background-color: black;
+    padding: 40px 30px;
+    border-radius: 2px;
+    transition: var(--transition-2);
+}
+
+.event-card:is(:hover, :focus-within) {
+    outline-color: var(--orange);
+}
+
+.event-card .card-time {
+    background-color: var(--orange);
+    color: var(--white);
+    font-weight: var(--fw-600);
+    line-height: 1.3;
+    max-width: max-content;
+    padding: 10px 20px;
+    border-radius: 8px;
+}
+
+.event-card .card-time .month {
+    font-size: 2.1rem;
+}
+
+.event-card .card-time .date {
+    font-size: var(--fs-4);
+}
+
+.event-card .card-subtitle {
+    margin-block: 30px 5px;
+    color: var(--orange);
+    font-size: var(--fs-8);
+    font-weight: var(--fw-600);
+    letter-spacing: -1px;
+}
+
+.event-card .card-title {
+    color: var(--white);
+    letter-spacing: -1px;
+}
+
+.event-card {
+    font-family: var(--ff-inter);
+    margin-block: 5px 30px;
+    color: var(--eerie-black);
+}
+
+.event .btn-secondary {
+    margin-inline: auto;
+}
+
+/*-----------------------------------*\
+  #MEDIA QUERIES
+\*-----------------------------------*/
+
+/**
+ * responsive for larger than 450px screen
+ */
+
+@media (min-width: 450px) {
+    /**
+   * CUSTOM PROPERTY
+   */
+
+    :root {
+        /**
+     * typography
+     */
+
+        --fs-3: 4rem;
+    }
+}
+
+/**
+ * responsive for larger than 580px screen
+ */
+
+@media (min-width: 580px) {
+    /**
+   * CUSTOM PROPERTY
+   */
+
+    :root {
+        /**
+     * typography
+     */
+
+        --fs-2: 5.5rem;
+    }
+
+    /**
+   * DONATE
+   */
+
+    .donate-card {
+        position: relative;
+        padding-block-end: 150px;
+        box-shadow: none;
+    }
+
+    .donate-card .card-content {
+        position: absolute;
+        width: 85%;
+        bottom: 0;
+        right: 0;
+        border-radius: 4px;
+        box-shadow: var(--card-shadow);
+    }
+
+    .donate-card .card-title {
+        --fs-5: 2.4rem;
+    }
+
+    /**
+   * EVENT
+   */
+
+    .event-card {
+        display: flex;
+        align-items: flex-start;
+        gap: 30px;
+    }
+
+    .event-card .card-subtitle {
+        margin-block-start: 0;
+    }
+
+    .event-card .card-title {
+        font-size: var(--fs-5);
+        line-height: 1.4;
+    }
+}
+
+/**
+ * responsive for larger than 768px screen
+ */
+
+@media (min-width: 768px) {
+}
+
+/**
+ * responsive for larger than 992px screen
+ */
+
+@media (min-width: 992px) {
+    /**
+   * CUSTOM PROPERTY
+   */
+
+    :root {
+        /**
+     * typography
+     */
+
+        --fs-2: 7.5rem;
+    }
+
+    /**
+   * DONATE
+   */
+
+    .donate-list {
+        grid-template-columns: 1fr 1fr;
+        column-gap: 30px;
+    }
+
+    /**
+   * EVENT
+   */
+
+    .event-card .wrapper {
+        display: flex;
+        flex-grow: 1;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .event-card {
+        margin-block-end: 0;
+    }
+}
+
+/**
+ * responsive for larger than 1200px screen
+ */
+
+@media (min-width: 1200px) {
+    /**
+   * CUSTOM PROPERTY
+   */
+
+    :root {
+        /**
+     * typography
+     */
+
+        --fs-3: 4.4rem;
+    }
+
+    /**
+   * REUSED STYLE
+   */
+
+    .container {
+        max-width: 1400px;
+        width: 100%;
+        margin-inline: auto;
+        padding-inline: 30px;
+    }
+
+    .section-title {
+        line-height: 1.2;
+    }
+
+    /**
+   * DONATE
+   */
+
+    .donate-card {
+        padding-inline-end: 120px;
+    }
+
+    .donate-card .card-content {
+        width: 65%;
+    }
+
+    /**
+   * PARTNER
+   */
+
+    .partner .container {
+        justify-content: space-evenly;
+    }
+}

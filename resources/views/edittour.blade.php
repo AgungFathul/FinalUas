@@ -121,7 +121,18 @@
                                                 <small>{{ $message }}</small>
                                             @enderror
                                         </div>
-
+                                        <div class="form-group">
+                                            <label for="fee">Fee</label>
+                                            <input type="number" class="form-control" id="fee" name="fee" value="{{ $data->fee }}">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="url_live">URL Live</label>
+                                            <input type="text" class="form-control" id="url_live" name="url_live" value="{{ $data->url_live }}">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="format">Format</label>
+                                            <input type="text" class="form-control" id="format" name="format" value="{{ $data->format }}">
+                                        </div>
                                         <div class="form-group">
                                             <label for="jenis_pendaftaran">Jenis Pendaftaran</label>
                                             <select class="form-select" id="jenis_pendaftaran" name="jenis_pendaftaran">

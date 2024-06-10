@@ -1,0 +1,17 @@
+[
+  {
+    "id": "1",
+    "name": "MLBB ALLSTARS TOURNAMENT CIBIRU",
+    "bgImage": "/GasLogin/assets/images/ml.jpg"
+  },
+  {
+    "id": "T2",
+    "name": "DOTA 2 TOURNAMENT BINTARO",
+    "bgImage": "/GasLogin/assets/images/dota2.jpg"
+  },
+  {
+    "id": "T3",
+    "name": "VALORANT TOURNAMENT JAKARTA",
+    "bgImage": "/GasLogin/assets/images/valo.jpg"
+  }
+]

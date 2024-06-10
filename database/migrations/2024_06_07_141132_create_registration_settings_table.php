@@ -6,15 +6,13 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up()
     {
         Schema::create('registration_settings', function (Blueprint $table) {
             $table->id();
-            $table->enum('jenis', ['Individu', 'Tim']);
-            $table->integer('jumlah_peserta')->nullable();
+            $table->unsignedBigInteger('tournament_id');
+            $table->string('jenis')->default('Tim');
+            // $table->integer('jumlah_peserta')->nullable();
             $table->integer('jumlah_anggota_tim')->nullable();
             $table->date('batas_pendaftaran');
             $table->timestamps();
@@ -22,10 +20,7 @@ return new class extends Migration
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
-    public function down(): void
+    public function down()
     {
         Schema::dropIfExists('registration_settings');
     }

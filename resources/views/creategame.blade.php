@@ -50,6 +50,13 @@
                                 <small>{{ $message }}</small>
                             @enderror
                           </div>
+                          <div class="form-group">
+                            <label for="exampleInputEmail1">platform</label>
+                            <input type="text" class="form-control" id="exampleInputEmail1" name="platform" placeholder="Enter berita">
+                            @error('platform')
+                                <small>{{ $message }}</small>
+                            @enderror
+                          </div>
                         </div>
                         <!-- /.card-body -->
 

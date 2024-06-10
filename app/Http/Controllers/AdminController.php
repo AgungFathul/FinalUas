@@ -8,13 +8,16 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Barryvdh\DomPDF\Facade\Pdf;
+use App\Models\Berita;
+use App\Models\Game;
+use Illuminate\Support\Facades\Auth;
 
-class HomeController extends Controller
+class AdminController extends Controller
 {
 
     public function __construct()
     {
-        // $this->middleware(['permission:view_dashboard']);
+        $this->middleware('isAdmin');
     }
 
     public function dashboard()
@@ -74,37 +77,69 @@ class HomeController extends Controller
 
     public function create()
     {
-        return view('create');
+        return view('createadmin');
     }
 
     public function store(Request $request)
     {
-
-        $validator = Validator::make($request->all(), [
-            'photo' => 'required|mimes:png,jpg,jpeg|max:2048',
-            'email' => 'required|email',
-            'nama'  => 'required',
-            'password' => 'required',
+        $request->validate([
+            'image' => 'required|mimes:png,jpg,jpeg|max:2048',
+            'name' => 'required',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|min:6'
         ]);
 
-        if ($validator->fails()) return redirect()->back()->withInput()->withErrors($validator);
-
-        $photo      = $request->file('photo');
+        $photo      = $request->file('image');
         $filename   = date('Y-m-d') . $photo->getClientOriginalName();
         $path       = 'photo-user/' . $filename;
 
         Storage::disk('public')->put($path, file_get_contents($photo));
 
+        $user = User::create([
+            'image' => $request->image,
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password)
+        ]);
 
-        $data['email']      = $request->email;
-        $data['name']       = $request->nama;
-        $data['password']   = Hash::make($request->password);
-        $data['image']      = $filename;
+        $user->assignRole('admin');
 
-        User::create($data);
+        $credentials = $request->only('email', 'password');
 
-        return redirect()->route('admin.index');
+        if (Auth::attempt($credentials)) {
+            return redirect()->route('admin.index');
+        } else {
+            return redirect()->route('admin.index')->with('failed', 'Email atau Password Salah');
+        }
     }
+    // public function store(Request $request)
+    // {
+    //     dd($request->all());
+    //     $validator = Validator::make($request->all(), [
+    //         'image' => 'required|mimes:png,jpg,jpeg|max:2048',
+    //         'email' => 'required|email',
+    //         'name'  => 'required',
+    //         'password' => 'required',
+    //     ]);
+
+    //     if ($validator->fails()) return redirect()->back()->withInput()->withErrors($validator);
+
+    //     $photo      = $request->file('image');
+    //     $filename   = date('Y-m-d') . $photo->getClientOriginalName();
+    //     $path       = 'photo-user/' . $filename;
+
+    //     Storage::disk('public')->put($path, file_get_contents($photo));
+
+
+    //     $data['email']      = $request->email;
+    //     $data['name']       = $request->name;
+    //     $data['password']   = Hash::make($request->password);
+    //     $data['image']      = $filename;
+
+    //     User::create($data);
+
+    //     return redirect()->route('admin.index');
+    // }
 
     public function edit(Request $request, $id)
     {
@@ -130,9 +165,9 @@ class HomeController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'email'     => 'required|email',
-            'nama'      => 'required',
+            'name'      => 'required',
             'password'  => 'nullable',
-            'photo'     => 'nullable|mimes:png,jpg,jpeg|max:2048',
+            'image'     => 'nullable|mimes:png,jpg,jpeg|max:2048',
         ]);
 
         if ($validator->fails()) return redirect()->back()->withInput()->withErrors($validator);
@@ -140,13 +175,13 @@ class HomeController extends Controller
         $find = User::find($id);
 
         $data['email']      = $request->email;
-        $data['name']       = $request->nama;
+        $data['name']       = $request->name;
 
         if ($request->password) {
             $data['password']   = Hash::make($request->password);
         }
 
-        $photo      = $request->file('photo');
+        $photo      = $request->file('image');
 
         if ($photo) {
 
@@ -176,5 +211,16 @@ class HomeController extends Controller
         }
 
         return redirect()->route('admin.index');
+    }
+
+    //Frontend
+    
+    // public function blog(){
+    //      // Fetch a specific article
+    //     return view('frontend/blog');
+    // }
+
+    public function creategame(){
+        return view('creategame');
     }
 }

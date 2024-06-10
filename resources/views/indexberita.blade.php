@@ -63,7 +63,7 @@
                                                 <td><img src="{{ asset('storage/photo-berita/' . $d->photo) }}" alt=""
                                                         width="50"></td>
                                                 <td>{{ $d->judul }}</td>
-                                                <td>{!! htmlspecialchars_decode($d->isiberita) !!}</td>
+                                                <td>{!! htmlspecialchars_decode(Str::limit($d->isiberita, 25)) !!}</td>
                                                 <td>
                                                     {{-- <a href="{{ route('admin.berita.detail', ['id' => $d->id]) }}"
                                                         class="btn btn-info"><i class="fas fa-eye"></i> Detail</a> --}}

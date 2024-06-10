@@ -13,7 +13,7 @@ class RegistrationSetting extends Model
     protected $fillable = [
         'tournament_id',
         'jenis',
-        'jumlah_peserta',
+        // 'jumlah_peserta',
         'jumlah_anggota_tim',
         'batas_pendaftaran',
     ];

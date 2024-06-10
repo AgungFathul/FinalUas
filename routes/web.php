@@ -4,8 +4,11 @@ use App\Http\Controllers\BelajarController;
 use App\Http\Controllers\BeritaController;
 use App\Http\Controllers\GameController;
 use App\Http\Controllers\DataTableController;
-use App\Http\Controllers\HomeController;
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\GuestController;
+use App\Http\Controllers\GeneralController;
 use App\Http\Controllers\TournamentController;
 use Illuminate\Support\Facades\Route;
 
@@ -20,7 +23,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [LoginController::class, 'index'])->name('login');
+// Route::get('/', [LoginController::class, 'index'])->name('login');
+Route::get('/', [GeneralController::class, 'home'])->name('home');
+Route::get('/authadmin', [LoginController::class, 'index'])->name('login');
 
 Route::get('/enkripsi', [BelajarController::class, 'enkripsi'])->name('enkripsi');
 Route::get('/enkripsi-detail/{params}', [BelajarController::class, 'enkripsi_detail'])->name('enkripsi-detail');
@@ -34,6 +39,51 @@ Route::get('locale/{locale}', function ($locale) {
 })->name('locale');
 
 
+//home
+
+    Route::get('/creategame', [AdminController::class, 'creategame'])->name('creategame');
+
+//endhome
+
+// GeneralRoute
+    Route::get('/home', [GeneralController::class, 'home'])->name('home');
+    Route::get('/detailtour/{id}', [GeneralController::class, 'detailtour'])->name('detailtour');
+    Route::get('/detailtourvalo', [GeneralController::class, 'detailtourvalo'])->name('detailtourvalo');
+    Route::get('/detaildonation', [GeneralController::class, 'detaildonation'])->name('detaildonation');
+    Route::get('/mainblog', [GeneralController::class, 'mainblog'])->name('mainblog');
+    Route::get('/about', [GeneralController::class, 'about'])->name('about');
+    Route::get('/blog/{id}', [GeneralController::class, 'blog'])->name('blog');
+    Route::get('/contact', [GeneralController::class, 'contact'])->name('contact');
+    Route::get('/tournament', [GeneralController::class, 'tournament'])->name('tournament');
+    Route::post('/tournament/register', [TournamentController::class, 'registertim'])->name('tournamentregister');
+    Route::post('/tour/storefe', [TournamentController::class, 'storetourfe'])->name('storetourfe');
+    Route::get('/tour/createfe', [TournamentController::class, 'createtourfe'])->name('createtourfe');
+// endGeneralRoute
+
+// GuestRoute
+    Route::group(['prefix' => 'guest', 'middleware' => ['isGuest'], 'as' => 'guest.'], function () {
+        Route::get('/login', [GuestController::class, 'index'])->name('login');
+        Route::post('/loginproses', [GuestController::class, 'loginproses'])->name('loginproses');
+        Route::get('/forgotpassword', [GuestController::class,'forgotpassword'])->name('forgotpassword');
+        Route::post('/forgotpasswordact', [GuestController::class, 'forgotpasswordact'])->name('forgotpasswordact');
+        Route::get('/register', [GuestController::class,'register'])->name('register');
+        Route::post('/registerproses', [GuestController::class,'registerproses'])->name('registerproses');
+        Route::get('/validasiforgotpassword/{token}', [GuestController::class, 'validasiforgotpassword'])->name('validasiforgotpassword');
+        Route::post('/validasiforgotpasswordact', [GuestController::class, 'validasiforgotpasswordact'])->name('validasiforgotpasswordact');
+
+    });
+// endGuestRoute
+
+// UserOnlyRoute
+    Route::group(['prefix' => 'pengguna_biasa', 'middleware' => ['isPengguna_Biasa'], 'as' => 'pengguna_biasa.'], function () {
+        Route::get('/createtour', [UserController::class, 'createtour'])->name('createtour');
+        Route::get('/tour/createfe', [TournamentController::class, 'createtourfe'])->name('createtourfe');
+        Route::get('/tour', [TournamentController::class, 'indextour'])->name('tour.index');
+        Route::get('/tour/create', [TournamentController::class, 'createtour'])->name('tour.create');
+        Route::get('/logout', [UserController::class,'logout'])->name('logout');
+    });
+// endUserOnlyRoute
+
 Route::get('/forgot-password', [LoginController::class, 'forgot_password'])->name('forgot-password');
 Route::post('/forgot-password-act', [LoginController::class, 'forgot_password_act'])->name('forgot-password-act');
 
@@ -46,21 +96,21 @@ Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 Route::get('/register', [LoginController::class, 'register'])->name('register');
 Route::post('/register-proses', [LoginController::class, 'register_proses'])->name('register-proses');
 
-Route::group(['prefix' => 'admin', 'middleware' => ['auth'], 'as' => 'admin.'], function () {
-    Route::get('/dashboard', [HomeController::class, 'dashboard'])->name('dashboard');
+Route::group(['prefix' => 'admin', 'middleware' => ['isAdmin'], 'as' => 'admin.'], function () {
+    Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
 
-    Route::get('/user', [HomeController::class, 'index'])->name('index');
-    Route::get('/assets', [HomeController::class, 'assets'])->name('assets');
-    Route::get('/create', [HomeController::class, 'create'])->name('user.create');
-    Route::post('/store', [HomeController::class, 'store'])->name('user.store');
+    Route::get('/user', [AdminController::class, 'index'])->name('index');
+    Route::get('/assets', [AdminController::class, 'assets'])->name('assets');
+    Route::get('/create', [AdminController::class, 'create'])->name('admin.create');
+    Route::post('/store', [AdminController::class, 'store'])->name('admin.store');
 
     Route::get('/clientside', [DataTableController::class, 'clientside'])->name('clientside');
     Route::get('/serverside', [DataTableController::class, 'serverside'])->name('serverside');
 
-    Route::get('/edit/{id}', [HomeController::class, 'edit'])->name('user.edit');
-    Route::get('/detail/{id}', [HomeController::class, 'detail'])->name('user.detail');
-    Route::put('/update/{id}', [HomeController::class, 'update'])->name('user.update');
-    Route::delete('/delete/{id}', [HomeController::class, 'delete'])->name('user.delete');
+    Route::get('/edit/{id}', [AdminController::class, 'edit'])->name('admin.edit');
+    Route::get('/detail/{id}', [AdminController::class, 'detail'])->name('admin.detail');
+    Route::put('/update/{id}', [AdminController::class, 'update'])->name('admin.update');
+    Route::delete('/delete/{id}', [AdminController::class, 'delete'])->name('admin.delete');
 
     Route::get('/berita', [BeritaController::class, 'indexberita'])->name('berita.index');
     Route::get('/berita/create', [BeritaController::class, 'createberita'])->name('berita.create');
@@ -84,6 +134,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth'], 'as' => 'admin.'], 
     Route::get('/tour/edit/{id}', [TournamentController::class, 'edittour'])->name('tour.edit');
     Route::put('/tour/update/{id}', [TournamentController::class, 'updatetour'])->name('tour.update');
     Route::delete('/tour/delete/{id}', [TournamentController::class, 'deletetour'])->name('tour.delete');
+    Route::get('/tour/createfe', [TournamentController::class, 'createtourfe'])->name('createtourfe');
+    Route::post('/tour/storefe', [TournamentController::class, 'storetourfe'])->name('storetourfe');
 
 
 

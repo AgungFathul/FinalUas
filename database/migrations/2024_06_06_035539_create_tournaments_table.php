@@ -25,6 +25,9 @@ return new class extends Migration
             $table->string('alamat')->nullable();
             $table->text('hadiah')->nullable();
             $table->text('rules')->nullable();
+            $table->integer('fee')->nullable();
+            $table->string('url_live')->nullable();
+            $table->string('format')->nullable();
             $table->timestamps();
         });
     }

@@ -1,0 +1,393 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap");
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: #0f161b;
+    background-size: cover;
+    background-position: center;
+}
+
+/* Homepage */
+.homepage {
+    height: 100vh;
+    width: 100%;
+    position: relative;
+    background-position: center;
+    background-size: cover;
+    margin-bottom: 60px;
+    margin-top: 15vh;
+    filter: brightness(0.85);
+}
+
+.homepage .content {
+    margin-top: 10vh;
+    display: flex;
+    height: 85%;
+    z-index: 3;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.homepage .content h1 {
+    font-size: 60px;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.homepage .content .text {
+    margin-top: 85px;
+    margin-bottom: 50px;
+    color: #fff;
+    font-size: 20px;
+    text-align: center;
+    text-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+}
+
+.content a {
+    color: white;
+    display: block;
+    text-transform: uppercase;
+    font-size: 18px;
+    padding: 10px 30px;
+    border-radius: 5px;
+    background-color: black;
+    transition: 0.4s ease;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    text-decoration: none;
+}
+
+.content a:hover {
+    color: #fff;
+    background: hsl(31, 100%, 51%);
+}
+
+/* List Game */
+.list_tournament {
+    margin-bottom: 30px;
+}
+.text_tournament {
+    color: #fff;
+    padding-bottom: 30px;
+    margin-left: 35px;
+    font-weight: 200;
+}
+
+.carousel {
+    position: relative;
+    height: auto;
+    width: 100%;
+    overflow: hidden;
+}
+
+.carousel-images {
+    display: flex;
+    transition: transform 0.5s ease;
+}
+
+.carousel-image {
+    flex: 0 0 auto;
+    width: calc(100% / 3);
+    position: relative;
+    box-sizing: border-box;
+    padding: 10px;
+    margin: 0;
+    overflow: hidden;
+}
+
+.carousel-images,
+.carousel-image {
+    box-sizing: border-box;
+}
+
+.carousel-image img {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+.image-title {
+    position: absolute;
+    bottom: 0;
+    left: 50%; /* Position the left edge of the title at the center of the image */
+    transform: translateX(
+        -50%
+    ); /* Shift the title to the left by half of its own width to center it */
+    background-color: rgba(
+        0,
+        0,
+        0,
+        0.75
+    ); /* Darker background for better readability */
+    border-radius: 20px;
+    color: white;
+    text-align: center;
+    padding: 10px 20px; /* Padding inside the title */
+    font-size: 16px;
+    max-width: 80%; /* Maximum width of the title's background */
+    box-sizing: border-box; /* Ensure padding is included in the width calculation */
+    margin-bottom: 15px;
+}
+
+.prev {
+    left: 10px;
+}
+
+.next {
+    right: 10px;
+}
+
+.prev,
+.next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: hsl(228, 12%, 17%);
+    color: hsl(31, 100%, 51%);
+    cursor: pointer;
+    padding: 10px;
+    border: none;
+}
+
+.prev:hover,
+.next:hover {
+    opacity: 1; /* Fully visible when hovered */
+}
+
+/* event list */
+.tournament_event {
+    display: flex;
+    position: relative; /* This makes it the positioning context for absolute children */
+    padding-bottom: 60px;
+    flex-direction: column;
+}
+
+.text_tournament {
+    margin-top: 30px;
+}
+
+.filter-section {
+    position: relative; /* If not already set */
+    z-index: 1;
+    padding: 20px 0;
+}
+
+/* Container to hold buttons, ensuring it's centered and has spacing */
+.filter-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    padding-left: 25px;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+/* Style for individual buttons */
+.filter-button {
+    cursor: pointer;
+    padding: 8px 16px;
+    border-radius: 20px;
+    background-color: hsl(228, 12%, 17%);
+    color: #fff;
+    text-align: center;
+    transition: background-color 0.3s ease;
+    user-select: none;
+    margin-right: 6px; /* Space between buttons */
+}
+
+.event-dropdown {
+    background-color: hsl(228, 12%, 17%);
+    color: white;
+    border: 1px solid hsl(31, 100%, 51%);
+    padding: 8px 12px;
+    border-radius: 5px;
+    width: auto;
+    outline: none;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    margin-left: 45px;
+}
+
+/* Hover and active styles */
+.filter-button:hover,
+.filter-button.active {
+    background-color: hsl(31, 100%, 51%);
+}
+
+.filter-button.active {
+    background-color: hsl(31, 100%, 51%);
+    color: white; /* Ensure text color contrasts well with the active background */
+}
+
+.card-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: left;
+    max-width: 1200px; /* Atur lebar maksimum kontainer */
+    margin: 0 auto;
+}
+
+.card {
+    display: flex;
+    width: 380px;
+    margin: 10px;
+    flex-direction: column;
+    background: hsl(228, 12%, 17%); /* Background color for the cards */
+    border-radius: 8px; /* Rounded corners for the cards */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Shadow for depth perception */
+    overflow: hidden;
+}
+
+.card:hover {
+    transform: scale(1.01);
+}
+
+.card-header {
+    position: relative;
+}
+
+.card-header img {
+    width: 100%;
+    height: 200px; /* Fixed height for consistency */
+    object-fit: cover;
+}
+
+.card-body {
+    padding: 15px;
+}
+
+.status {
+    padding: 5px 10px;
+    border-radius: 5px;
+    color: white;
+    font-size: 14px;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+.status-upcoming {
+    background-color: #f9a825;
+}
+.status-ongoing {
+    background-color: #43a047;
+}
+
+.status-completed {
+    background-color: #790000;
+}
+
+.card-body {
+    padding: 15px;
+    text-align: left;
+}
+
+.tournament-name {
+    font-size: 18px;
+    margin: 10px 0;
+    color: hsl(0, 0%, 100%);
+}
+
+.tournament-detail {
+    font-size: 14px;
+    color: hsl(0, 0%, 100%);
+}
+
+@media screen and (max-width: 860px) {
+    /* homepage */
+
+    .homepage {
+        height: auto; /* Instead of 100vh to take up only needed space */
+        padding-top: 110px;
+    }
+
+    .homepage .content h1 {
+        font-size: 28px; /* Smaller font size for the main title */
+        margin-bottom: 5px; /* Reduce the margin bottom */
+    }
+
+    .homepage .content .text {
+        font-size: 14px; /* Smaller text for better fit on smaller screens */
+        margin-top: 60px; /* Adjusted margin */
+        margin-bottom: 30px; /* Adjusted margin */
+        padding: 20px;
+    }
+
+    .content a {
+        font-size: 16px; /* Smaller font size for buttons */
+        padding: 8px 20px; /* Adjust padding */
+        margin: 0 5px; /* Adjust margin */
+    }
+
+    /* event list */
+
+    .carousel-image {
+        /* Adjust to show only 1 or 2 images at a time for smaller screens */
+        width: calc(100% / 2); /* Shows 2 images at a time */
+    }
+
+    .carousel .prev,
+    .carousel .next {
+        /* Adjust button size for better visibility and interaction */
+        width: 25px; /* Adjusted size */
+        height: 35px;
+        font-size: 20px; /* Adjusted icon size for clarity */
+        padding: 0;
+    }
+
+    .image-title {
+        padding: 0 8px; /* Smaller padding inside the title */
+        font-size: 13px; /* Smaller font size for the title */
+        bottom: 10px; /* Adjusted position for the title */
+    }
+
+    /* event */
+    .filter-buttons {
+        flex-direction: row; /* Keep buttons in a row on small screens */
+        flex-wrap: wrap; /* Allow buttons to wrap if needed */
+        padding-left: 10px;
+    }
+
+    .filter-button {
+        padding: 6px 12px; /* Smaller padding */
+        font-size: 14px; /* Smaller font size */
+    }
+
+    .card-container {
+        justify-content: center;
+        max-width: 100%;
+        padding: 0 15px;
+    }
+
+    .card {
+        width: 100%;
+        max-width: 300px;
+        margin: 10px;
+    }
+
+    .card-header img {
+        height: 200px; /* Fixed height for header images */
+    }
+
+    .card-body {
+        padding: 10px; /* Adjust padding for card body */
+    }
+
+    .status {
+        padding: 4px 8px; /* Adjust padding for status labels */
+        font-size: 12px; /* Smaller font size for status labels */
+    }
+
+    .tournament-name,
+    .tournament-detail {
+        font-size: 14px; /* Smaller font sizes for text inside cards */
+    }
+}

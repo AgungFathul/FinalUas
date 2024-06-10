@@ -21,7 +21,7 @@
         <section class="content">
             <div class="container-fluid">
                 <div class="col-12">
-                <form action="{{ route('admin.user.update', ['id' => $data->id]) }}" method="POST"
+                <form action="{{ route('admin.admin.update', ['id' => $data->id]) }}" method="POST"
                     enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
@@ -44,9 +44,9 @@
                                         <div class="form-group">
                                             <label for="exampleInputEmail1">Photo</label>
                                             <input type="file" class="form-control" id="exampleInputEmail1"
-                                                name="photo">
+                                                name="image">
                                             <small>Upload foto jika ingin menggantinya</small>
-                                            @error('photo')
+                                            @error('image')
                                                 <br>
                                                 <small>{{ $message }}</small>
                                             @enderror
@@ -61,10 +61,10 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="exampleInputEmail1">Nama</label>
-                                            <input type="text" name="nama" class="form-control"
+                                            <input type="text" name="name" class="form-control"
                                                 id="exampleInputEmail1" value="{{ $data->name }}"
                                                 placeholder="Enter Name">
-                                            @error('nama')
+                                            @error('name')
                                                 <small>{{ $message }}</small>
                                             @enderror
                                         </div>

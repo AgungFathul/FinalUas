@@ -19,7 +19,10 @@ class Tournament extends Model
         'tipe',
         'alamat',
         'hadiah',
-        'rules'
+        'rules',
+        'fee',
+        'url_live',
+        'format'
     ];
     
     //Contoh relasi dengan User, jika ada

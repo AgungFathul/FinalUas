@@ -1,0 +1,719 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #0f161b;
+    background-size: cover;
+    background-position: center;
+}
+
+/*
+    ==================
+    tour card/banner
+    ==================
+  */
+.tour-card {
+    margin-top: 60px;
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 100vh;
+}
+
+.tour-bg {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+}
+
+.tour-info-container {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    z-index: 1;
+}
+
+.tour-information {
+    margin-top: 100px;
+    margin-left: 20px;
+    margin-bottom: 20px;
+    padding: 20px 0px 0px 50px;
+    box-sizing: border-box;
+    color: rgb(255, 255, 255);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 30);
+    z-index: 1;
+}
+
+.tour-information li {
+    margin-left: 40px;
+    display: flex;
+    padding-bottom: 3px;
+}
+
+.tour-information li .icon {
+    margin-right: 10px;
+}
+.tour-information h1 {
+    font-family: var(--ff-oswald);
+    font-size: 45px;
+    font-weight: bold;
+    margin-left: 15px;
+    color: var(--orange);
+}
+
+h4 {
+    font-size: var(--fs-7);
+    font-weight: 600;
+    color: var(--orange);
+    line-height: 1.2;
+    font-family: var(--ff-poppins);
+    margin-bottom: 8px;
+    margin-left: 15px;
+}
+
+.tour-information p {
+    text-decoration: underline;
+    color: var(--white);
+}
+
+/* regist button on banner */
+.reg-tour {
+    max-width: fit-content;
+    margin-top: 150px;
+    padding: 20px 70px 0px 0px;
+    z-index: 1;
+}
+
+.reg-tour p {
+    margin-top: 14px;
+    text-align: center;
+    color: var(--white);
+}
+
+.reg-button,
+.end-button {
+    margin-top: 15px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 190px;
+    height: 50px;
+    color: var(--white);
+    font-weight: 600;
+    background-color: var(--orange);
+    border-radius: 7px;
+}
+
+.end-button {
+    background-color: var(--xiketic);
+    border: 1.5px solid rgba(255, 134, 5, 0.5);
+    color: var(--orange);
+}
+
+.end-button:hover {
+    cursor: not-allowed;
+}
+
+.reg-button:hover {
+    background-color: var(--white);
+    transition: 0.3s ease;
+    color: var(--raisin-black-1);
+}
+
+/* popup for regist button */
+.modal {
+    display: none;
+    margin-top: 100px;
+    padding-left: 50px;
+    padding-right: 50px;
+    position: fixed;
+    z-index: 2;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.6);
+    color: var(--orange);
+}
+
+.modal-content {
+    background-color: var(--raisin-black-1);
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid var(--orange);
+    width: 100%;
+    border-radius: 10px;
+}
+
+.close-button {
+    color: var(--white);
+    float: right;
+    font-size: 28px;
+    font-weight: small;
+}
+
+.close-button:hover,
+.close-button:focus {
+    color: var(--fs-9);
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.submit-button {
+    background-color: var(--orange);
+    width: 200px;
+    padding: 7px 17px 7px 17px;
+    margin: 20px auto;
+    border-radius: 3px;
+}
+
+.submit-button:hover {
+    background-color: var(--white);
+    transition: 0.3s ease;
+    color: var(--raisin-black-1);
+}
+
+.captain-info {
+    margin: 15px 0;
+    padding: 10px;
+    border: 0.5px solid rgba(255, 134, 5, 0.5);
+    border-radius: 5px;
+    color: var(--white);
+}
+.captain-info p {
+    font-weight: bold;
+}
+
+.captain-info small {
+    font-size: small;
+}
+.capt-card {
+    display: flex;
+    width: 100%;
+    color: var(--orange);
+}
+.capt-uname,
+.capt-id {
+    width: 50%;
+    margin: 10px;
+}
+.reg-member-card {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.reg-member-info {
+    width: 48%;
+    max-width: 48%;
+    padding: 10px;
+    color: var(--white);
+    margin: 5px;
+    font-weight: bold;
+}
+
+.reg-member-info label {
+    color: #ff8800;
+    font-size: small;
+    font-weight: 100;
+}
+
+.modal input[type="text"] {
+    background-color: var(--raisin-black-2);
+    border-bottom: 0.5px solid rgba(255, 134, 5, 0.5);
+    color: var(--white);
+    padding: 5px;
+    font-weight: 50;
+    font-size: small;
+    outline: none;
+}
+
+/* 
+  ======================
+    style for TAB
+  ======================
+*/
+button .tab-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.tab-box {
+    width: 100%;
+    background-color: transparent;
+}
+
+.tab-box .tab-btns {
+    margin: 40px 40px 20px 40px;
+    padding: 0 20px 0 20px;
+}
+
+.tab-btns {
+    display: flex;
+    border-bottom: 1px solid #ff8800;
+    outline: none;
+    overflow-x: auto;
+}
+
+.tab-btns::-webkit-scrollbar {
+    display: none;
+}
+
+.tab-btns .tab-btn {
+    min-width: fit-content;
+}
+
+.tab-btn {
+    position: relative;
+    padding: 10px 20px;
+    background-color: transparent;
+    font-family: var(--ff-oswald);
+    font-size: var(--fs-6);
+    font-weight: bold;
+    color: #ffffff;
+    border-bottom: 2px solid transparent;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.tab-btn:hover {
+    color: #ff8800;
+}
+
+.tab-btn.active {
+    color: #ff8800;
+    border-bottom-color: #ff8800;
+}
+
+.tab-btn:after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: #ff8800;
+    transform: scale(0, 1);
+    transition: transform 0.3s ease;
+}
+
+.tab-btn.active:after,
+.tab-btn:hover:after {
+    width: 100%;
+    transform: scale(1, 1);
+}
+
+.content-box {
+    width: 100%;
+    margin-top: 40px;
+    padding: 25px 50px 25px 50px;
+}
+
+.content {
+    display: none;
+    animation: fade-in 0.5s ease;
+}
+
+.content h2 {
+    padding-bottom: 15px;
+    color: var(--white);
+}
+
+.content.active {
+    display: block;
+}
+
+/* animation for transition each tab */
+@keyframes fade-in {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* overview */
+.overview-box {
+    display: flex;
+    justify-content: space-between;
+}
+
+.box-1 {
+    width: 65%;
+    color: #ff8800;
+    margin-right: 30px;
+}
+
+.desc-overview {
+    padding: 20px 10px 20px 10px;
+    color: var(--white);
+    border: 0.5px solid rgba(255, 134, 5, 0.5);
+    border-left: none;
+    border-right: none;
+    margin-bottom: 15px;
+}
+
+.desc-overview span {
+    font-style: italic;
+    padding-bottom: 10px;
+    font-weight: bold;
+    color: var(--orange);
+}
+
+.box-2 {
+    width: 35%;
+    color: #ff8800;
+}
+
+.box-2 p {
+    color: var(--white);
+    font-size: var(--fs-9);
+}
+
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    width: 100%;
+}
+
+.box-small {
+    width: 100%;
+    max-width: 25%;
+    border-right: 0.5px solid rgba(255, 134, 5, 0.3);
+    color: #ffffff;
+    margin-bottom: 2%;
+    padding: 2%;
+    display: flex;
+    flex-direction: column;
+}
+
+.box-small:last-child {
+    border-right: none;
+}
+
+.box-small .desc-1 {
+    font-weight: bolder;
+    color: var(--orange);
+    font-family: var(--ff-oswald);
+}
+
+.overview-icon img {
+    width: 32px;
+    height: 32px;
+    border-radius: 20%;
+}
+
+.overview-icon {
+    font-size: 32px;
+    padding-bottom: 10px;
+}
+
+.desc-2 li {
+    margin-left: 20px;
+}
+
+.desc-2 {
+    margin-top: 5px;
+    font-family: var(--ff-poppins);
+    font-size: small;
+}
+
+.box-fill {
+    margin-bottom: 25px;
+}
+
+.box-large {
+    width: 100%;
+    color: #ffffff;
+    background-color: var(--raisin-black-2);
+    box-shadow: 0 4px 8px #0000003b;
+    max-height: fit-content;
+    padding: 10px 25px 20px 25px;
+    overflow: auto;
+}
+
+.desc-location .loct {
+    display: flex;
+    flex-direction: row;
+}
+
+.desc-location .loct .icon {
+    margin-right: 10px;
+    margin-top: 3px;
+}
+
+.desc-location span {
+    color: rgba(255, 134, 5, 0.7);
+    margin-top: 10px;
+    margin-bottom: 5px;
+}
+
+.iframe-map {
+    max-width: 100%;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: fit-content;
+}
+
+th {
+    color: var(--orange);
+}
+
+td {
+    color: var(--white);
+}
+
+th,
+td {
+    border-bottom: 1px solid rgba(255, 134, 5, 0.5);
+    padding: 8px;
+    text-align: center;
+    border-right: none;
+}
+
+th:first-child,
+td:first-child {
+    text-align: center;
+}
+
+table tbody tr:last-child td,
+table tbody tr:last-child th {
+    border-bottom: none;
+}
+
+.detail-standings {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 5%;
+    padding: 10px 25px 0 25px;
+    background-color: var(--raisin-black-2);
+    box-shadow: 0 4px 8px #0000003b;
+    overflow: auto;
+}
+
+.detail-standings > .standings {
+    min-width: fit-content;
+}
+
+/* 
+  *************
+  RESPONISIVE
+  *************
+*/
+
+/* untuk MAX-width */
+@media screen and (max-width: 650px) {
+    .modal {
+        margin-top: 150px;
+    }
+    .capt-card {
+        flex-wrap: wrap;
+    }
+
+    .reg-member-info {
+        width: 100%;
+        max-width: 100%;
+        border: 0.5px solid rgba(255, 134, 5, 0.5);
+        border-radius: 3px;
+    }
+
+    .capt-uname,
+    .capt-id {
+        width: 100%;
+        margin: 10px;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .tour-info-container {
+        flex-direction: column;
+    }
+
+    .tour-information {
+        margin-top: 150px;
+        margin-left: 0;
+        padding: 0;
+        margin-right: 0;
+        max-width: 100%;
+        text-align: center;
+    }
+    .tour-information li {
+        justify-content: center;
+        margin-left: 0;
+    }
+
+    .reg-tour {
+        margin-top: 40px;
+        margin-left: auto;
+        margin-right: auto;
+        padding: 0;
+    }
+
+    .reg-button {
+        margin: 0;
+        padding: 0;
+    }
+}
+
+@media screen and (max-width: 815px) {
+    .overview-box {
+        flex-direction: column;
+    }
+
+    .box-1,
+    .box-2 {
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .iframe-live {
+        max-width: 100%;
+    }
+}
+
+@media screen and (max-width: 400px) {
+    .tour-information h1 {
+        font-size: var(--fs-3);
+    }
+
+    .winner td,
+    .winner th {
+        font-size: smaller;
+    }
+
+    .winner {
+        min-width: fit-content;
+    }
+
+    .box-small {
+        max-width: 100%;
+        border: 0.5px solid rgba(255, 134, 5, 0.3);
+        padding: 4%;
+        margin-bottom: 5%;
+        align-items: center;
+        border-radius: 10px;
+    }
+    .box-small:last-child {
+        border-right: 0.5px solid rgba(255, 134, 5, 0.3);
+    }
+
+    .box-small .desc-2 {
+        text-align: center;
+    }
+
+    .box-large h2 {
+        font-size: medium;
+    }
+}
+
+/* untuk MIN-width */
+@media screen and (min-width: 768px) {
+    .tour-information {
+        margin-top: 150px;
+        max-width: 50%;
+    }
+
+    .detail-standings {
+        width: 80%;
+    }
+
+    .modal-content {
+        width: 80%;
+    }
+}
+
+@media screen and (min-width: 850px) {
+    .modal-content {
+        width: 75%;
+    }
+}
+@media screen and (min-width: 920px) {
+    .modal-content {
+        width: 70%;
+    }
+}
+@media screen and (min-width: 1020px) {
+    .modal-content {
+        width: 60%;
+        margin-top: 100px;
+    }
+}
+
+/* untuk MAX  - height */
+@media screen and (max-height: 450px) {
+    .tour-header {
+        height: 180vh;
+        overflow: hidden;
+    }
+
+    .tour-bg {
+        max-height: 180vh;
+        overflow: hidden;
+    }
+}
+@media screen and (max-height: 570px) {
+    .tour-header {
+        height: 120vh;
+        overflow: hidden;
+    }
+
+    .tour-bg {
+        max-height: 120vh;
+        overflow: hidden;
+    }
+}
+
+/* untuk MIN-height */
+@media screen and (min-height: 700px) {
+    .tour-header {
+        height: 80vh;
+        overflow: hidden;
+    }
+
+    .tour-bg {
+        max-height: 80vh;
+        overflow: hidden;
+    }
+}
+
+@media screen and (min-height: 850px) {
+    .tour-header {
+        height: 70vh;
+        overflow: hidden;
+    }
+
+    .tour-bg {
+        max-height: 70vh;
+        overflow: hidden;
+    }
+}
+
+@media screen and (min-height: 950px) {
+    .tour-header {
+        height: 60vh;
+        overflow: hidden;
+    }
+
+    .tour-bg {
+        max-height: 60vh;
+        overflow: hidden;
+    }
+}

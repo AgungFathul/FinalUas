@@ -52,6 +52,7 @@
                                             <th>No</th>
                                             <th>Photo</th>
                                             <th>Judul Game</th>
+                                            <th>platform</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
@@ -62,6 +63,7 @@
                                                 <td><img src="{{ asset('storage/photo-game/' . $d->photo) }}" alt=""
                                                         width="50"></td>
                                                 <td>{{ $d->judul }}</td>
+                                                <td>{{ $d->platform }}</td>
                                                 <td>
                                                     {{-- <a href="{{ route('admin.berita.detail', ['id' => $d->id]) }}"
                                                         class="btn btn-info"><i class="fas fa-eye"></i> Detail</a> --}}

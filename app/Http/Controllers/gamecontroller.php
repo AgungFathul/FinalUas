@@ -33,11 +33,13 @@ class GameController extends Controller
         $validator = Validator::make($request->all(), [
             'photogame' => 'required|mimes:png,jpg,jpeg|max:2048',
             'judul' => 'required',
+            'platform' => 'required',
         ], [
             'photogame.required' => 'Photo is required.',
             'photogame.mimes'    => 'Photo must be a file of type: png, jpg, jpeg.',
             'photogame.max'      => 'Photo may not be greater than 2048 kilobytes.',
             'judul.required' => 'Title is required.',
+            'platform.required' => 'Platform is required.',
         ]);
 
         if ($validator->fails()) {
@@ -52,6 +54,7 @@ class GameController extends Controller
 
         Game::create([
             'judul' => $request->judul,
+            'platform' => $request->platform,
             'photo'    => $filename,
         ]);
 
@@ -68,9 +71,11 @@ class GameController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'judul'     => 'required',
+            'platform' => 'required',
             'photogame' => 'nullable|mimes:png,jpg,jpeg|max:2048',
         ], [
             'judul.required'     => 'Title is required.',
+            'platform.required' => 'Platform is required.',
             'photogame.mimes'    => 'Photo must be a file of type: png, jpg, jpeg.',
             'photogame.max'      => 'Photo may not be greater than 2048 kilobytes.',
         ]);
@@ -82,6 +87,7 @@ class GameController extends Controller
         $game = Game::findOrFail($id);
         $game->update([
             'judul' => $request->judul,
+            'platform' => $request->platform,
         ]);
 
         if ($request->hasFile('photogame')) {
