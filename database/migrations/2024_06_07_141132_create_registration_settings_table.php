@@ -13,7 +13,6 @@ return new class extends Migration
     {
         Schema::create('registration_settings', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('tournament_id');
             $table->enum('jenis', ['Individu', 'Tim']);
             $table->integer('jumlah_peserta')->nullable();
             $table->integer('jumlah_anggota_tim')->nullable();
