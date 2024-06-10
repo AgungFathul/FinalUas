@@ -52,7 +52,7 @@ class LoginController extends Controller
 
         Mail::to($request->email)->send(new ResetPasswordMail($token));
 
-        return redirect()->route('forgot-password')->with('success', 'Kami telah mengirimkan link reset password ke email anda');
+        return redirect()->route('guest.admin.forgot-password')->with('success', 'Kami telah mengirimkan link reset password ke email anda');
     }
 
     public function validasi_forgot_password_act(Request $request)
@@ -69,13 +69,13 @@ class LoginController extends Controller
         $token = PasswordResetToken::where('token', $request->token)->first();
 
         if (!$token) {
-            return redirect()->route('login')->with('failed', 'Token tidak valid');
+            return redirect()->route('guest.admin.login')->with('failed', 'Token tidak valid');
         }
 
         $user = User::where('email', $token->email)->first();
 
         if (!$user) {
-            return redirect()->route('login')->with('failed', 'Email tidak terdaftar di database');
+            return redirect()->route('guest.admin.login')->with('failed', 'Email tidak terdaftar di database');
         }
 
         $user->update([
@@ -84,7 +84,7 @@ class LoginController extends Controller
 
         $token->delete();
 
-        return redirect()->route('login')->with('success', 'Password berhasil direset');
+        return redirect()->route('guest.admin.login')->with('success', 'Password berhasil direset');
     }
 
     public function validasi_forgot_password(Request $request, $token)
@@ -92,7 +92,7 @@ class LoginController extends Controller
         $getToken = PasswordResetToken::where('token', $token)->first();
 
         if (!$getToken) {
-            return redirect()->route('login')->with('failed', 'Token tidak valid');
+            return redirect()->route('guest.admin.login')->with('failed', 'Token tidak valid');
         }
 
         return view('auth.validasi-token', compact('token'));
@@ -113,14 +113,14 @@ class LoginController extends Controller
         if (Auth::attempt($data)) {
             return redirect()->route('admin.dashboard');
         } else {
-            return redirect()->route('login')->with('failed', 'Email atau Password Salah');
+            return redirect()->route('guest.admin.login')->with('failed', 'Email atau Password Salah');
         }
     }
 
     public function logout()
     {
         Auth::logout();
-        return redirect()->route('login')->with('success', 'Kamu berhasil logout');
+        return redirect()->route('guest.admin.login')->with('success', 'Kamu berhasil logout');
     }
 
     public function register()
@@ -150,7 +150,7 @@ class LoginController extends Controller
         if (Auth::attempt($login)) {
             return redirect()->route('admin.dashboard');
         } else {
-            return redirect()->route('login')->with('failed', 'Email atau Password Salah');
+            return redirect()->route('guest.admin.login')->with('failed', 'Email atau Password Salah');
         }
     }
 }

@@ -14,7 +14,7 @@ class RoleSeeder extends Seeder
         Role::create(['name' => 'admin']);
         Role::create(['name' => 'pengguna_biasa']);
 
-        for ($i = 1; $i <= 12; $i++) {
+        for ($i = 1; $i <= 11; $i++) {
             $user = User::find($i);
             if ($user) {
                 $user->assignRole('pengguna_biasa');

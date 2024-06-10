@@ -17,6 +17,7 @@
     <style>
         .containerz {
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             padding: 20px;
@@ -79,6 +80,10 @@
         .btn-secondary {
             background-color: #6c757d;
         }
+        .btn-tour-index {
+            width: 55%;
+            margin-bottom: 25px;
+        }
         .step {
             display: none;
         }
@@ -93,6 +98,10 @@
         @php
         $games = App\Models\Game::all();
         @endphp
+        <a 
+            class="btn btn-primary btn-tour-index" 
+            href="{{ route('pengguna_biasa.tour.index') }}"
+        >Manage Tournaments</a>
         <form action="{{ route('storetourfe') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="row">

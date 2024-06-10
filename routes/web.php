@@ -64,25 +64,54 @@ Route::get('locale/{locale}', function ($locale) {
     Route::group(['prefix' => 'guest', 'middleware' => ['isGuest'], 'as' => 'guest.'], function () {
         Route::get('/login', [GuestController::class, 'index'])->name('login');
         Route::post('/loginproses', [GuestController::class, 'loginproses'])->name('loginproses');
+
         Route::get('/forgotpassword', [GuestController::class,'forgotpassword'])->name('forgotpassword');
         Route::post('/forgotpasswordact', [GuestController::class, 'forgotpasswordact'])->name('forgotpasswordact');
+
         Route::get('/register', [GuestController::class,'register'])->name('register');
         Route::post('/registerproses', [GuestController::class,'registerproses'])->name('registerproses');
+
         Route::get('/validasiforgotpassword/{token}', [GuestController::class, 'validasiforgotpassword'])->name('validasiforgotpassword');
         Route::post('/validasiforgotpasswordact', [GuestController::class, 'validasiforgotpasswordact'])->name('validasiforgotpasswordact');
 
+        Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
+            Route::get('/login', [LoginController::class, 'index'])->name('login');
+
+            Route::get('/forgot-password', [LoginController::class, 'forgot_password'])->name('forgot-password');
+            Route::post('/forgot-password-act', [LoginController::class, 'forgot_password_act'])->name('forgot-password-act');
+
+            Route::get('/validasi-forgot-password/{token}', [LoginController::class, 'validasi_forgot_password'])->name('validasi-forgot-password');
+            Route::post('/validasi-forgot-password-act', [LoginController::class, 'validasi_forgot_password_act'])->name('validasi-forgot-password-act');
+
+            Route::post('/login-proses', [LoginController::class, 'login_proses'])->name('login-proses');
+            Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
+
+            Route::get('/register', [LoginController::class, 'register'])->name('register');
+            Route::post('/register-proses', [LoginController::class, 'register_proses'])->name('register-proses');
+        });
     });
 // endGuestRoute
 
 // UserOnlyRoute
     Route::group(['prefix' => 'pengguna_biasa', 'middleware' => ['isPengguna_Biasa'], 'as' => 'pengguna_biasa.'], function () {
+        Route::get('/logout', [UserController::class,'logout'])->name('logout');
+
         Route::get('/createtour', [UserController::class, 'createtour'])->name('createtour');
         Route::get('/tour/createfe', [TournamentController::class, 'createtourfe'])->name('createtourfe');
+        
         Route::get('/tour', [TournamentController::class, 'indextour'])->name('tour.index');
         Route::get('/tour/create', [TournamentController::class, 'createtour'])->name('tour.create');
-        Route::get('/logout', [UserController::class,'logout'])->name('logout');
+        Route::post('/tour/store', [TournamentController::class, 'storetour'])->name('tour.store');
+        Route::get('/tour/edit/{id}', [TournamentController::class, 'edittour'])->name('tour.edit');
+        Route::put('/tour/update/{id}', [TournamentController::class, 'updatetour'])->name('tour.update');
+        Route::delete('/tour/delete/{id}', [TournamentController::class, 'deletetour'])->name('tour.delete');
+        Route::get('/tour/createfe', [TournamentController::class, 'createtourfe'])->name('createtourfe');
+        Route::post('/tour/storefe', [TournamentController::class, 'storetourfe'])->name('storetourfe');
+        Route::post('/tournament/register/{id}', [TournamentController::class, 'register'])->name('tour.register');
     });
 // endUserOnlyRoute
+
+Route::get('/', [LoginController::class, 'index'])->name('login');
 
 Route::get('/forgot-password', [LoginController::class, 'forgot_password'])->name('forgot-password');
 Route::post('/forgot-password-act', [LoginController::class, 'forgot_password_act'])->name('forgot-password-act');

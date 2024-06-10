@@ -60,7 +60,7 @@
                             class="fas fa-bars"></i></a>
                 </li>
                 <li class="nav-item d-none d-sm-inline-block">
-                    <a href="index3.html" class="nav-link">Home</a>
+                    <a href="{{ Auth::check() && Auth::user()->hasRole('pengguna_biasa') ? route('home') : route('admin.dashboard') }}" class="nav-link">Home</a>
                 </li>
                 <li class="nav-item d-none d-sm-inline-block">
                     <a href="#" class="nav-link">Contact</a>
@@ -196,6 +196,7 @@
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
                         data-accordion="false">
 
+                        @if (Auth::check() && Auth::user()->hasRole('admin'))
                         <li class="nav-item">
                             <a href="{{ route('admin.dashboard') }}" class="nav-link">
                                 <i class="nav-icon fas fa-th"></i>
@@ -228,8 +229,9 @@
                                 </p>
                             </a>
                         </li>
+                        @endif
                         <li class="nav-item">
-                            <a href="{{ route('admin.tour.index') }}" class="nav-link">
+                            <a href="{{ Auth::check() && Auth::user()->hasRole('pengguna_biasa') ? route('pengguna_biasa.tour.index') : route('admin.tour.index') }}" class="nav-link">
                                 <i class="nav-icon fas fa-th"></i>
                                 <p>
                                     Tournament
@@ -237,13 +239,14 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('logout') }}" class="nav-link">
+                            <a href="{{ Auth::check() && Auth::user()->hasRole('pengguna_biasa') ? route('pengguna_biasa.logout') : route('logout') }}" class="nav-link">
                                 <i class="nav-icon fas fa-th"></i>
                                 <p>
                                     Logout
                                 </p>
                             </a>
                         </li>
+                        
 
                     </ul>
                 </nav>
