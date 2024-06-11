@@ -24,11 +24,19 @@ class UserSeeder extends Seeder
             'password'  => Hash::make('qt7htrq5y7o'),
         ]);
         $admin->assignRole($adminRole);
+       
+        $admin = User::create([
+            'name'      => 'AgungFathulMuhtadin',
+            'email'     => 'z@gmail.com',
+            'password'  => Hash::make('testpw'),
+        ]);
+        
+        $admin->assignRole($adminRole);
 
         $user = User::create([
             'name'      => 'RakaIndraRahmawan',
             'email'     => 'rirahmawan@gmail.com',
-            'password'  => Hash::make('testpassword'),
+            'password'  => Hash::make('testpw'),
         ]);
         $user->assignRole($userRole);
     }

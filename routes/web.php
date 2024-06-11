@@ -10,6 +10,8 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\GuestController;
 use App\Http\Controllers\GeneralController;
 use App\Http\Controllers\TournamentController;
+use App\Http\Controllers\StandingController;
+use App\Http\Controllers\TeamController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -55,7 +57,7 @@ Route::get('locale/{locale}', function ($locale) {
     Route::get('/blog/{id}', [GeneralController::class, 'blog'])->name('blog');
     Route::get('/contact', [GeneralController::class, 'contact'])->name('contact');
     Route::get('/tournament', [GeneralController::class, 'tournament'])->name('tournament');
-    Route::post('/tournament/register', [TournamentController::class, 'registertim'])->name('tournamentregister');
+    Route::post('/tournament/register', [TeamController::class, 'register'])->name('tournamentregister');
     Route::post('/tour/storefe', [TournamentController::class, 'storetourfe'])->name('storetourfe');
     Route::get('/tour/createfe', [TournamentController::class, 'createtourfe'])->name('createtourfe');
 // endGeneralRoute
@@ -107,7 +109,15 @@ Route::get('locale/{locale}', function ($locale) {
         Route::delete('/tour/delete/{id}', [TournamentController::class, 'deletetour'])->name('tour.delete');
         Route::get('/tour/createfe', [TournamentController::class, 'createtourfe'])->name('createtourfe');
         Route::post('/tour/storefe', [TournamentController::class, 'storetourfe'])->name('storetourfe');
+
         Route::post('/tournament/register/{id}', [TournamentController::class, 'register'])->name('tour.register');
+
+        //standing
+        Route::get('/tournaments/{tournament}/standings/addteam', [StandingController::class, 'create'])->name('standing.create');
+        Route::post('/tournaments/{tournament}/standings/addteam', [StandingController::class, 'store'])->name('standing.store');
+        Route::get('/tournaments/{tournament}/standings', [StandingController::class, 'index'])->name('standing.index');
+        Route::get('/tournaments/{tournament}/standings/{standing}/edit', [StandingController::class, 'edit'])->name('standing.edit');
+        Route::put('/standings/{standing}', [StandingController::class, 'update'])->name('standing.update');
     });
 // endUserOnlyRoute
 
@@ -166,6 +176,12 @@ Route::group(['prefix' => 'admin', 'middleware' => ['isAdmin'], 'as' => 'admin.'
     Route::get('/tour/createfe', [TournamentController::class, 'createtourfe'])->name('createtourfe');
     Route::post('/tour/storefe', [TournamentController::class, 'storetourfe'])->name('storetourfe');
 
+    //standing
+    Route::get('/tournaments/{tournament}/standings/addteam', [StandingController::class, 'create'])->name('standing.create');
+    Route::post('/tournaments/{tournament}/standings/addteam', [StandingController::class, 'store'])->name('standing.store');
+    Route::get('/tournaments/{tournament}/standings', [StandingController::class, 'index'])->name('standing.index');
+    Route::get('/tournaments/{tournament}/standings/{standing}/edit', [StandingController::class, 'edit'])->name('standing.edit');
+    Route::put('/standings/{standing}', [StandingController::class, 'update'])->name('standing.update');
 
 
     Route::group(['prefix' => 'belajar'], function () {
