@@ -229,6 +229,14 @@
                                 </p>
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a href="{{ route('admin.admin.komentar') }}" class="nav-link">
+                                <i class="nav-icon fas fa-th"></i>
+                                <p>
+                                    Komentar
+                                </p>
+                            </a>
+                        </li>
                         @endif
                         <li class="nav-item">
                             <a href="{{ Auth::check() && Auth::user()->hasRole('pengguna_biasa') ? route('pengguna_biasa.tour.index') : route('admin.tour.index') }}" class="nav-link">

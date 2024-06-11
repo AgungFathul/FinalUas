@@ -123,6 +123,12 @@ class LoginController extends Controller
         return redirect()->route('guest.admin.login')->with('success', 'Kamu berhasil logout');
     }
 
+    public function logoutuser()
+    {
+        Auth::logout();
+        return redirect()->route('guest.login')->with('success', 'Kamu berhasil logout');
+    }
+
     public function register()
     {
         return view('auth.register');

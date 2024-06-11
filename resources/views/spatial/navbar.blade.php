@@ -93,7 +93,7 @@
         @endguest
     
         @auth
-        <a href="{{ route('pengguna_biasa.logout') }}"
+        <a href="{{ route('logoutuser') }}"
            onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
             <button class="btn-sign_in">
                 <div class="icon-box">
@@ -103,7 +103,7 @@
             </button>
         </a>
     
-        <form id="logout-form" action="{{ route('pengguna_biasa.logout') }}" method="GET" style="display: none;">
+        <form id="logout-form" action="{{ route('logoutuser') }}" method="GET" style="display: none;">
             @csrf
         </form>
         @endauth
