@@ -30,7 +30,11 @@
                         </div>
                         <!-- /.card-header -->
                         <!-- form start -->
+<<<<<<< Updated upstream
                         
+=======
+
+>>>>>>> Stashed changes
                         <form action="{{ route('admin.standing.update', ['tournament' => $standing->tournament_id, 'standing' => $standing->id]) }}" method="POST">
                             @csrf
                             @method('PUT')
@@ -62,4 +66,8 @@
         </section>
         <!-- /.content -->
     </div>
+<<<<<<< Updated upstream
 @endsection
+=======
+@endsection
+>>>>>>> Stashed changes

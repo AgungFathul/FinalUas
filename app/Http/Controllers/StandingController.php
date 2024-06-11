@@ -58,13 +58,13 @@ class StandingController extends Controller
             'lose' => 'required|integer|min:0',
         ]);
 
-        $totalMatches = $validatedData['win'] + $validatedData['lose'];
-        $winRate = $totalMatches > 0 ? round(($validatedData['win'] / $totalMatches) * 100) : 0;
+        // $totalMatches = $validatedData['win'] + $validatedData['lose'];
+        // $winRate = $totalMatches > 0 ? round(($validatedData['win'] / $totalMatches) * 100) : 0;
 
         $standing->update([
             'win' => $validatedData['win'],
             'lose' => $validatedData['lose'],
-            'wr' => $winRate,
+            // 'wr' => $winRate,
         ]);
 
         if (Auth::check() && Auth::user()->hasRole('pengguna_biasa'))
