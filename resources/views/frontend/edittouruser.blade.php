@@ -157,6 +157,11 @@
                                     <div class="card-footer">
                                         <button type="submit" class="btn btn-primary">Submit</button>
                                     </div>
+                                    <div class="card-footer">
+                                        <a href="{{ route('pengguna_biasa.standing.index', $data->id) }}" class="btn btn-secondary">
+                                            <i class="fas fa-list-ol"></i> Manage Standings
+                                        </a>
+                                    </div>
                                 </div>
                                 <!-- /.card -->
                             </div>

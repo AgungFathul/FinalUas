@@ -19,6 +19,6 @@ class isAdmin
         if (Auth::check() && Auth::user()->hasRole('admin')) {
             return $next($request);
         }
-        return redirect()->route('login')->withErrors('Silahkan login terlebih dahulu');
+        return redirect()->route('guest.admin.login')->withErrors('Silahkan login terlebih dahulu');
     }
 }

@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\RedirectResponse;
+use Spatie\Permission\Traits\HasRoles;
 
 
 class TournamentController extends Controller
@@ -27,51 +28,10 @@ class TournamentController extends Controller
     //     return view('frontend/detail_tour', compact('tournament'));
     // }
 
-    public function registertim(Request $request)
-{
-    // Validate the input data
-    $request->validate([
-        'team_name' => 'required|string|max:255',
-        'captain_name' => 'required|string|max:255',
-        'captain_game_id' => 'required|string|max:255',
-        'tournament_id' => 'required|exists:tournaments,id',
-    ]);
-
-    // Check if the user is already registered for this tournament
-    $existingTeam = Team::where('user_id', auth()->id())
-                        ->where('tournament_id', $request->tournament_id)
-                        ->first();
-
-    if ($existingTeam) {
-        return back()->withErrors(['user_id' => 'You have already registered a team for this tournament.'])->withInput();
-    }
-
-    // Get the registration settings for the tournament
-    $registrationSetting = RegistrationSetting::where('tournament_id', $request->tournament_id)->first();
-
-    if (!$registrationSetting) {
-        return back()->withErrors(['tournament_id' => 'Tournament registration settings not found.'])->withInput();
-    }
-
-    // Check if the registration limit has been reached
-    $currentTeamCount = Team::where('tournament_id', $request->tournament_id)->count();
-
-    if ($currentTeamCount >= $registrationSetting->jumlah_anggota_tim) {
-        return back()->withErrors(['tournament_id' => 'The registration limit for this tournament has been reached.'])->withInput();
-    }
-
-    // Create a new team
-    Team::create([
-        'name' => $request->team_name,
-        'captain_name' => $request->captain_name,
-        'captain_game_id' => $request->captain_game_id,
-        'user_id' => auth()->id(), // Use the authenticated user's ID
-        'tournament_id' => $request->tournament_id,
-    ]);
-
-    // Return the same view with a success message (if needed)
-    return back()->with('success', 'Team registered successfully!');
-}
+    // public function registertim(Request $request)
+    // {
+        
+    // }
 
 public function indexdetailtour($id, Request $request)
 {
@@ -96,8 +56,10 @@ public function indexdetailtour($id, Request $request)
         if (Auth::user()->hasRole('pengguna_biasa')) {
             $query->where('user_id', Auth::user()->id);
             $view = 'frontend.indextouruser';
-        } else {
+        } else if (Auth::user()->hasRole('admin')){
             $view = 'indextour';
+        } else {
+            return redirect()->route('guest.login');
         }
 
         if ($request->has('search')) {
@@ -121,7 +83,7 @@ public function indexdetailtour($id, Request $request)
 
     public function storetourfe(Request $request): RedirectResponse
     {
-        // dd($request->all());
+
         $validator = Validator::make($request->all(), [
             'user_id'         => 'required|exists:users,id',
             'game_id'         => 'required|exists:games,id',
@@ -213,12 +175,23 @@ public function indexdetailtour($id, Request $request)
         } else if (Auth::check() && Auth::user()->hasRole('admin'))
         {
             return view('createtour', compact('games'));
-        } 
+        } else {
+            return redirect()->route('guest.login');
+        }
 
     }
 
     public function storetour(Request $request): RedirectResponse
     {
+        $redirect = null;
+    
+        if (Auth::user()->hasRole('pengguna_biasa')) {
+            $redirect = 'pengguna_biasa.tour.index';
+        } else if (Auth::user()->hasRole('admin')) {
+            $redirect = 'admin.tour.index';
+        } else {
+            return redirect()->route('guest.login');
+        }
         // dd($request->all());
         $validator = Validator::make($request->all(), [
             'user_id'         => 'required|exists:users,id',
@@ -297,14 +270,11 @@ public function indexdetailtour($id, Request $request)
             'batas_pendaftaran' => $request->batas_pendaftaran,
         ]);
 
-        if (Auth::check() && Auth::user()->hasRole('pengguna_biasa'))
-        {
-            return redirect()->route('pengguna_biasa.tour.index');
-        } else if (Auth::check() && Auth::user()->hasRole('admin'))
-        {
-            return redirect()->route('admin.tour.index')->with('success', 'Turnamen berhasil dibuat!');
-        } 
-        return redirect()->back()->with('error','Unexpected Error');
+        if ($redirect) {
+            return redirect()->route($redirect)->with('success', 'Tournament created successfully.');
+        } else {
+            return redirect()->route('guest.login')->with('error', 'An error occurred.');
+        }
     }
 
     public function edittour(Request $request, $id)
@@ -329,10 +299,21 @@ public function indexdetailtour($id, Request $request)
         }
 
         return redirect()->back()->with('error', 'Unexpected Error');
+
     }
 
     public function updatetour(Request $request, $id): RedirectResponse
     {
+        // $redirect = null;
+    
+        // if (Auth::user()->hasRole('pengguna_biasa')) {
+        //     $redirect = 'pengguna_biasa.tour.index';
+        // } else if (Auth::user()->hasRole('admin')) {
+        //     $redirect = 'admin.tour.index';
+        // } else {
+        //     return redirect()->route('guest.login');
+        // }
+        
         $validator = Validator::make($request->all(), [
             'nama'            => 'required',
             'url'             => 'required',
@@ -413,6 +394,12 @@ public function indexdetailtour($id, Request $request)
             return redirect()->route('admin.tour.index')->with('success', 'Turnamen berhasil diperbarui!');
         }
         return redirect()->back()->with('error','Unexpected Error');
+
+        // if ($redirect) {
+        //     return redirect()->route($redirect)->with('success', 'Tournament created successfully.');
+        // } else {
+        //     return redirect()->route('guest.login')->with('error', 'An error occurred.');
+        // }
     }
 
 
@@ -427,7 +414,11 @@ public function indexdetailtour($id, Request $request)
             // Check if the user is an admin or the owner of the tournament
             if ($user->hasRole('admin') || ($user->hasRole('pengguna_biasa') && $data->user_id == $user->id)) {
                 $data->forceDelete();
-                return redirect()->route('tour.index')->with('success', 'Tournament deleted successfully!');
+                if ($user->hasRole('admin')) {
+                    return redirect()->route('admin.tour.index')->with('success', 'Tournament deleted successfully!');
+                } else {
+                    return redirect()->route('pengguna_biasa.tour.index')->with('success', 'Tournament deleted successfully!');
+                }
             } else {
                 return redirect()->back()->with('error', 'You do not have permission to delete this tournament.');
             }
