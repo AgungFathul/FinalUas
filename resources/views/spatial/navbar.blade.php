@@ -77,9 +77,6 @@
       </nav>
 
       <div class="header-actions">
-        <button class="search">
-            <ion-icon name="search-outline"></ion-icon>
-        </button>
     
         @guest
         <a href="{{ route('guest.login') }}">
@@ -93,6 +90,11 @@
         @endguest
     
         @auth
+        <a href="{{ route('pengguna_biasa.tour.index') }}">
+        <button class="search">
+          <ion-icon name="people-outline"></ion-icon>
+          </button>
+        </a>
         <a href="{{ route('logoutuser') }}"
            onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
             <button class="btn-sign_in">
