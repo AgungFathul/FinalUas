@@ -9,7 +9,7 @@
     <link rel="apple-touch-icon" href="{{ asset('logo.PNG') }}">
     <link rel="manifest" href="{{ asset('/manifest.json') }}">
     <title>GASLogin</title>
-    <link rel="shortcut icon" href="./assets/images/fav.png" type="image/svg+xml">
+    <link rel="shortcut icon" href="{{ asset('assets/images/fav.png') }}" type="image/svg+xml">
 
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"

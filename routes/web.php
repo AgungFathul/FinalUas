@@ -101,6 +101,7 @@ Route::get('locale/{locale}', function ($locale) {
         Route::get('/tour/createfe', [TournamentController::class, 'createtourfe'])->name('createtourfe');
         
         Route::get('/tour', [TournamentController::class, 'indextour'])->name('tour.index');
+        Route::get('/tour/detail/{id}', [TournamentController::class, 'indexdetailtour'])->name('tour.detail');
         Route::get('/tour/create', [TournamentController::class, 'createtour'])->name('tour.create');
         Route::post('/tour/store', [TournamentController::class, 'storetour'])->name('tour.store');
         Route::get('/tour/edit/{id}', [TournamentController::class, 'edittour'])->name('tour.edit');
@@ -164,10 +165,12 @@ Route::group(['prefix' => 'admin', 'middleware' => ['isAdmin'], 'as' => 'admin.'
 
     // tournamnent
     Route::get('/tour', [TournamentController::class, 'indextour'])->name('tour.index');
+    Route::get('/tour/detail/{id}', [TournamentController::class, 'indexdetailtour'])->name('tour.detail');
     Route::get('/tour/create', [TournamentController::class, 'createtour'])->name('tour.create');
     Route::post('/tour/store', [TournamentController::class, 'storetour'])->name('tour.store');
     Route::get('/tour/edit/{id}', [TournamentController::class, 'edittour'])->name('tour.edit');
     Route::put('/tour/update/{id}', [TournamentController::class, 'updatetour'])->name('tour.update');
+
     Route::delete('/tour/delete/{id}', [TournamentController::class, 'deletetour'])->name('tour.delete');
     Route::get('/tour/createfe', [TournamentController::class, 'createtourfe'])->name('createtourfe');
     Route::post('/tour/storefe', [TournamentController::class, 'storetourfe'])->name('storetourfe');

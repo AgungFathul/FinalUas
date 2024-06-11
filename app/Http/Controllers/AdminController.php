@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Validator;
 use Barryvdh\DomPDF\Facade\Pdf;
 use App\Models\Berita;
 use App\Models\Game;
+use App\Models\Tournament;
 use App\Models\Comment;
 use Illuminate\Support\Facades\Auth;
 
@@ -24,7 +25,10 @@ class AdminController extends Controller
     public function dashboard()
     {
         $userCount = User::count();
-        return view('dashboard', ['userCount' => $userCount]);
+        $beritacount = Berita::count();
+        $tourcount = Tournament::count();
+        $komentarcount = Comment::count();
+        return view('dashboard', ['userCount' => $userCount, 'beritacount' => $beritacount, 'tourcount' => $tourcount, 'komentarcount' => $komentarcount]);
 
         return abort(403);
     }

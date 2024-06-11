@@ -6,12 +6,12 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0">User</h1>
+                        <h1 class="m-0">Tournament</h1>
                     </div><!-- /.col -->
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="#">Home</a></li>
-                            <li class="breadcrumb-item active">Data User</li>
+                            <li class="breadcrumb-item active">Detail Turnamen</li>
                         </ol>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
@@ -24,7 +24,6 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-12">
-                        <a href="{{ route('admin.admin.create') }}" class="btn btn-primary mb-3">Tambah Data</a>
                         <div class="card">
                             <div class="card-header">
                                 <h3 class="card-title">Responsive Hover Table</h3>
@@ -50,66 +49,59 @@
                                     <thead>
                                         <tr>
                                             <th>No</th>
-                                            <th>Photo</th>
-                                            <th>Nama</th>
-                                            <th>Email</th>
-                                            <th>Action</th>
+                                            <th>Nama Turnamen</th>
+                                            <th>Nama Tim</th>
+                                            <th>Nama Kapten</th>
+                                            <th>Game ID Kapten</th>
+                                            <th>Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($data as $d)
+                                        @foreach ($teams as $team)
                                             <tr>
                                                 <td>{{ $loop->iteration }}</td>
-                                                <td><img src="{{ asset('storage/photo-user/' . $d->image) }}" alt=""
-                                                        width="50"></td>
-                                                <td>{{ $d->name }}</td>
-                                                <td>{{ $d->email }}</td>
+                                                <td>{{ $team->tournament->nama }}</td>
+                                                <td>{{ $team->name }}</td>
+                                                <td>{{ $team->captain_name }}</td>
+                                                <td>{{ $team->captain_game_id }}</td>
                                                 <td>
-                                                    {{-- <a href="{{ route('admin.admin.detail', ['id' => $d->id]) }}"
-                                                        class="btn btn-info"><i class="fas fa-eye"></i> Detail</a> --}}
-                                                    <a href="{{ route('admin.admin.edit', ['id' => $d->id]) }}"
-                                                        class="btn btn-primary"><i class="fas fa-pen"></i> Edit</a>
-                                                    <a data-toggle="modal" data-target="#modal-hapus{{ $d->id }}"
-                                                        class="btn btn-danger"><i class="fas fa-trash-alt"></i> Hapus</a>
+                                                    <a href="{{ route('admin.tour.edit', ['id' => $team->id]) }}" class="btn btn-primary">
+                                                        <i class="fas fa-pen"></i> Edit
+                                                    </a>
+                                                    <a data-toggle="modal" data-target="#modal-hapus{{ $team->id }}" class="btn btn-danger">
+                                                        <i class="fas fa-trash-alt"></i> Hapus
+                                                    </a>
                                                 </td>
                                             </tr>
-                                            <div class="modal fade" id="modal-hapus{{ $d->id }}">
+                                            <div class="modal fade" id="modal-hapus{{ $team->id }}">
                                                 <div class="modal-dialog">
                                                     <div class="modal-content">
                                                         <div class="modal-header">
                                                             <h4 class="modal-title">Konfirmasi Hapus Data</h4>
-                                                            <button type="button" class="close" data-dismiss="modal"
-                                                                aria-label="Close">
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                                 <span aria-hidden="true">&times;</span>
                                                             </button>
                                                         </div>
                                                         <div class="modal-body">
-                                                            <p>Apakah kamu yakin ingin menghapus data admin
-                                                                <b>{{ $d->name }}</b>
-                                                            </p>
+                                                            <p>Apakah kamu yakin ingin menghapus data tim <b>{{ $team->name }}</b>?</p>
                                                         </div>
                                                         <div class="modal-footer justify-content-between">
-                                                            <form
-                                                                action="{{ route('admin.admin.delete', ['id' => $d->id]) }}"
-                                                                method="POST">
+                                                            <form action="{{ route('admin.tour.delete', ['id' => $team->id]) }}" method="POST">
                                                                 @csrf
                                                                 @method('DELETE')
-                                                                <button type="button" class="btn btn-default"
-                                                                    data-dismiss="modal">Close</button>
-                                                                <button type="submit" class="btn btn-primary">Ya,
-                                                                    Hapus</button>
+                                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                                <button type="submit" class="btn btn-primary">Ya, Hapus</button>
                                                             </form>
                                                         </div>
                                                     </div>
-                                                    <!-- /.modal-content -->
                                                 </div>
-                                                <!-- /.modal-dialog -->
                                             </div>
-                                            <!-- /.modal -->
                                         @endforeach
                                     </tbody>
                                 </table>
                             </div>
+                            
+                            
                             <!-- /.card-body -->
                         </div>
                         <!-- /.card -->
@@ -120,4 +112,25 @@
         </section>
         <!-- /.content -->
     </div>
+
+    <script>
+        function changeStatus(teamId) {
+            var formId = 'status-form-' + teamId;
+            var form = document.getElementById(formId);
+            var statusInput = form.querySelector('input[name="status"]');
+    
+            // Change status
+            if (statusInput.value === 'Pending') {
+                statusInput.value = 'Approved';
+            } else if (statusInput.value === 'Approved') {
+                statusInput.value = 'Rejected';
+            } else {
+                statusInput.value = 'Pending';
+            }
+    
+            // Submit the form
+            form.submit();
+        }
+    </script>
+    
 @endsection

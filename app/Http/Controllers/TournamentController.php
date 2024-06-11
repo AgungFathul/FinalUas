@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\RedirectResponse;
 
+
 class TournamentController extends Controller
 {
 
@@ -72,9 +73,18 @@ class TournamentController extends Controller
     return back()->with('success', 'Team registered successfully!');
 }
 
+public function indexdetailtour($id, Request $request)
+{
+    $tournament = Tournament::with('teams')->find($id);
 
-    
-    
+    if (!$tournament) {
+        return redirect()->route('admin.tournaments.index')->with('error', 'Tournament not found.');
+    }
+
+    return view('indexdetailtour', ['teams' => $tournament->teams, 'request' => $request]);
+}
+
+
     
 
 
