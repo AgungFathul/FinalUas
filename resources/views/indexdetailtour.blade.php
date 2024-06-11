@@ -53,7 +53,7 @@
                                             <th>Nama Tim</th>
                                             <th>Nama Kapten</th>
                                             <th>Game ID Kapten</th>
-                                            <th>Aksi</th>
+                                            {{-- <th>Aksi</th> --}}
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -64,16 +64,8 @@
                                                 <td>{{ $team->name }}</td>
                                                 <td>{{ $team->captain_name }}</td>
                                                 <td>{{ $team->captain_game_id }}</td>
-                                                <td>
-                                                    <a href="{{ route('admin.tour.edit', ['id' => $team->id]) }}" class="btn btn-primary">
-                                                        <i class="fas fa-pen"></i> Edit
-                                                    </a>
-                                                    <a data-toggle="modal" data-target="#modal-hapus{{ $team->id }}" class="btn btn-danger">
-                                                        <i class="fas fa-trash-alt"></i> Hapus
-                                                    </a>
-                                                </td>
                                             </tr>
-                                            <div class="modal fade" id="modal-hapus{{ $team->id }}">
+                                            {{-- <div class="modal fade" id="modal-hapus{{ $team->id }}">
                                                 <div class="modal-dialog">
                                                     <div class="modal-content">
                                                         <div class="modal-header">
@@ -86,7 +78,7 @@
                                                             <p>Apakah kamu yakin ingin menghapus data tim <b>{{ $team->name }}</b>?</p>
                                                         </div>
                                                         <div class="modal-footer justify-content-between">
-                                                            <form action="{{ route('admin.tour.delete', ['id' => $team->id]) }}" method="POST">
+                                                            <form action="{{ route('tour.delete', ['id' => $team->id]) }}" method="POST">
                                                                 @csrf
                                                                 @method('DELETE')
                                                                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -95,11 +87,13 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            </div> --}}
                                         @endforeach
                                     </tbody>
                                 </table>
                             </div>
+                        </div>
+
                             
                             
                             <!-- /.card-body -->

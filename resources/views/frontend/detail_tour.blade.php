@@ -91,6 +91,8 @@
               $game = Game::find($tournament->game_id);
               $tournament = Tournament::find($tournament->id);
               $teams = Team::where('tournament_id', $tournament->id)->get();
+              $standingsArray = DB::select('CALL GetStandingsRanking(?)', [$tournament->id]);
+              $standings = collect($standingsArray);
               $registration = RegistrationSetting::where('tournament_id', $tournament->id)->first();
             @endphp
             <h1>{{ $tournament->nama }}</h1>
@@ -250,21 +252,12 @@
                           </tr>
                         </thead>
                         <tbody>
-                          <tr>
-                            <td>🥇</td>
-                            <td>\</td>
-                            
-                          </tr>
-                          <tr>
-                            <td>🥈</td>
-                            <td>JAW</td>
-                            
-                          </tr>
-                          <tr>
-                            <td>🥉</td>
-                            <td>COLOSAL</td>
-                            
-                          </tr>
+                          @foreach ($standings->take(3) as $standing)
+                            <tr>
+                                <td>{{ $standing->ranking }}</td>
+                                <td>{{ $standing->team_name }}</td>
+                            </tr>
+                          @endforeach 
                         </tbody>
                       </table>
                     </div>
@@ -312,62 +305,15 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <td>🥇</td>
-                      <td>FOUNDING</td>
-                      <td>3</td>
-                      <td>0</td>
-                      <td>100%</td>
-                    </tr>
-                    <tr>
-                      <td>🥈</td>
-                      <td>JAW</td>
-                      <td>2</td>
-                      <td>1</td>
-                      <td>50%</td>
-                    </tr>
-                    <tr>
-                      <td>🥉</td>
-                      <td>COLOSAL</td>
-                      <td>2</td>
-                      <td>1</td>
-                      <td>50%</td>
-                    </tr>
-                    <tr>
-                      <td>4</td>
-                      <td>SHIFTER</td>
-                      <td>1</td>
-                      <td>2</td>
-                      <td>33%</td>
-                    </tr>
-                    <tr>
-                      <td>5</td>
-                      <td>ARMOR</td>
-                      <td>0</td>
-                      <td>1</td>
-                      <td>0%</td>
-                    </tr>
-                    <tr>
-                      <td>5</td>
-                      <td>BEAST</td>
-                      <td>0</td>
-                      <td>1</td>
-                      <td>0%</td>
-                    </tr>
-                    <tr>
-                      <td>5</td>
-                      <td>WALL</td>
-                      <td>0</td>
-                      <td>1</td>
-                      <td>0%</td>
-                    </tr>
-                    <tr>
-                      <td>5</td>
-                      <td>WAR</td>
-                      <td>0</td>
-                      <td>1</td>
-                      <td>0%</td>
-                    </tr>
+                    @foreach ($standings as $standing)
+                      <tr>
+                          <td>{{ $standing->ranking }}</td>
+                          <td>{{ $standing->team_name }}</td>
+                          <td>{{ $standing->win }}</td>
+                          <td>{{ $standing->lose }}</td>
+                          <td>{{ $standing->wr }}%</td>
+                      </tr>
+                    @endforeach
                   </tbody>
                 </table>
               </div>

@@ -5,24 +5,26 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Team extends Model
+class Standing extends Model
 {
     use HasFactory;
-
     protected $fillable = [
-        'name',
-        'captain_name',
-        'captain_game_id',
         'tournament_id',
-        'user_id',  // Add user_id here
+        'rank',
+        'team_id',
+        'win',
+        'lose',
+        'wr',
     ];
 
+    // Relasi ke model Tournament
     public function tournament()
     {
         return $this->belongsTo(Tournament::class);
     }
-    public function standings()
+
+    public function team()
     {
-        return $this->hasMany(Standing::class);
+        return $this->belongsTo(Team::class);
     }
 }

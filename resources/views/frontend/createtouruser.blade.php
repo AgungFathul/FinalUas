@@ -28,9 +28,9 @@
                             <div class="col-md-12">
                                 <!-- general form elements -->
                                 <div class="card card-primary">
-                                    <div class="card-header">
+                                    {{-- <div class="card-header">
                                         <h3 class="card-title">Form Tambah Turnamen</h3>
-                                    </div>
+                                    </div> --}}
                                     <!-- /.card-header -->
                                     <!-- form start -->
                                     <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
@@ -143,22 +143,23 @@
                                                 <small>{{ $message }}</small>
                                             @enderror
                                         </div>
-                                        <h2>ISI PENGATURAN REGISTRASI PESERTA</h2>
+            
                                         <div class="form-group">
-                                            <label for="jenis_pendaftaran">Jenis Pendaftaran</label>
-                                            <select class="form-select" id="jenis_pendaftaran" name="jenis_pendaftaran">
+                                            {{-- <label for="jenis_pendaftaran">Jenis Pendaftaran</label> --}}
+                                            {{-- <select class="form-select" id="jenis_pendaftaran" name="jenis_pendaftaran">
                                                 <option value="Individu" {{ old('jenis_pendaftaran') == 'Individu' ? 'selected' : '' }}>Individu</option>
                                                 <option value="Tim" {{ old('jenis_pendaftaran') == 'Tim' ? 'selected' : '' }}>Tim</option>
-                                            </select>
+                                            </select> --}}
+                                            <input type="hidden" class="form-control" id="jenis_pendaftaran" name="jenis_pendaftaran" value="Tim" readonly>
                                         </div>
-
-                                        <div class="form-group" id="jumlah_peserta_container">
+            
+                                        {{-- <div class="form-group" id="jumlah_peserta_container">
                                             <label for="jumlah_peserta">Jumlah Peserta</label>
                                             <input type="number" class="form-control" id="jumlah_peserta" name="jumlah_peserta" value="{{ old('jumlah_peserta', 1) }}">
-                                        </div>
+                                        </div> --}}
                                     
-                                        <div class="form-group" id="jumlah_anggota_tim_container" style="{{ old('jenis_pendaftaran') == 'Tim' ? '' : 'display:none;' }}">
-                                            <label for="jumlah_anggota_tim">Jumlah Anggota Tim</label>
+                                        <div class="form-group" id="jumlah_anggota_tim_container" style="{{ old('jenis_pendaftaran')}}">
+                                            <label for="jumlah_anggota_tim">Jumlah Tim</label>
                                             <input type="number" class="form-control" id="jumlah_anggota_tim" name="jumlah_anggota_tim" value="{{ old('jumlah_anggota_tim') }}">
                                         </div>
                                     
@@ -185,7 +186,7 @@
         // js for tipe turnamen
         const tipeSelect = document.getElementById('tipe');
         const alamatContainer = document.getElementById('alamat-container');
-
+    
         tipeSelect.addEventListener('change', function() {
             if (this.value === 'Offline') {
                 alamatContainer.style.display = 'block';
@@ -193,22 +194,22 @@
                 alamatContainer.style.display = 'none';
             }
         });
-
-        // js for tipe peserta
-        const jenisPendaftaranSelect = document.getElementById('jenis_pendaftaran');
-        const jumlahPesertaContainer = document.getElementById('jumlah_peserta_container');
-        const jumlahAnggotaTimContainer = document.getElementById('jumlah_anggota_tim_container');
-
-        jenisPendaftaranSelect.addEventListener('change', function() {
-            if (this.value === 'Individu') {
-                jumlahPesertaContainer.style.display = 'block';
-                jumlahAnggotaTimContainer.style.display = 'none';
-            } else {
-                jumlahPesertaContainer.style.display = 'block';
-                jumlahAnggotaTimContainer.style.display = 'block';
-            }
-        });
-
+    
+        // // js for tipe peserta
+        // const jenisPendaftaranSelect = document.getElementById('jenis_pendaftaran');
+        // const jumlahPesertaContainer = document.getElementById('jumlah_peserta_container');
+        // const jumlahAnggotaTimContainer = document.getElementById('jumlah_anggota_tim_container');
+    
+        // jenisPendaftaranSelect.addEventListener('change', function() {
+        //     if (this.value === 'Individu') {
+        //         jumlahPesertaContainer.style.display = 'block';
+        //         jumlahAnggotaTimContainer.style.display = 'none';
+        //     } else {
+        //         jumlahPesertaContainer.style.display = 'block';
+        //         jumlahAnggotaTimContainer.style.display = 'block';
+        //     }
+        // });
+    
         // js for form deskripsi
         $(document).ready(function() {
             $('.summernote').summernote();

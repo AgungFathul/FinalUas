@@ -5,6 +5,7 @@ use App\Models\RegistrationSetting;
 use App\Http\Controllers\GameController;
 use App\Models\Game;
 use App\Models\Tournament; 
+use App\Models\Standing;
 use App\Models\Team;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -30,7 +31,8 @@ class TournamentController extends Controller
     public function registertim(Request $request)
 {
     // Validate the input data
-    $request->validate([
+     // Validate the input data
+     $request->validate([
         'team_name' => 'required|string|max:255',
         'captain_name' => 'required|string|max:255',
         'captain_game_id' => 'required|string|max:255',
@@ -61,7 +63,7 @@ class TournamentController extends Controller
     }
 
     // Create a new team
-    Team::create([
+    $team = Team::create([
         'name' => $request->team_name,
         'captain_name' => $request->captain_name,
         'captain_game_id' => $request->captain_game_id,
@@ -69,7 +71,17 @@ class TournamentController extends Controller
         'tournament_id' => $request->tournament_id,
     ]);
 
-    // Return the same view with a success message (if needed)
+    // Create a new standing entry for the team
+    Standing::create([
+        'tournament_id' => $request->tournament_id,
+        'team_id' => $team->id, 
+        'rank' => null, 
+        'win' => 0,
+        'lose' => 0,
+        'wr' => 0,
+    ]);
+
+    // Return the same view with a success message
     return back()->with('success', 'Team registered successfully!');
 }
 
@@ -400,7 +412,7 @@ public function indexdetailtour($id, Request $request)
 
         $data->registrationSetting()->update([
             'jenis' => $request->jenis_pendaftaran,
-            'jumlah_peserta'    => $request->jumlah_peserta,
+            // 'jumlah_peserta'    => $request->jumlah_peserta,
             'jumlah_anggota_tim' => $request->jumlah_anggota_tim,
             'batas_pendaftaran' => $request->batas_pendaftaran,
         ]);

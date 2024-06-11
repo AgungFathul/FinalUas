@@ -9,6 +9,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\GuestController;
 use App\Http\Controllers\GeneralController;
+use App\Http\Controllers\StandingController;
 use App\Http\Controllers\TournamentController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CommentController;
@@ -59,6 +60,7 @@ Route::get('locale/{locale}', function ($locale) {
     Route::post('/tournament/register', [TournamentController::class, 'registertim'])->name('tournamentregister');
     Route::post('/tour/storefe', [TournamentController::class, 'storetourfe'])->name('storetourfe');
     Route::get('/tour/createfe', [TournamentController::class, 'createtourfe'])->name('createtourfe');
+    
 // endGeneralRoute
 
 // GuestRoute
@@ -112,6 +114,11 @@ Route::get('locale/{locale}', function ($locale) {
         Route::post('/tournament/register/{id}', [TournamentController::class, 'register'])->name('tour.register');
 
         Route::post('/berita/{berita}/comments', [CommentController::class, 'store'])->name('comments.store');
+
+            //standing
+    Route::get('/tournaments/{tournament}/standings', [StandingController::class, 'index'])->name('standing.index');
+    Route::get('/tournaments/{tournament}/standings/{standing}/edit', [StandingController::class, 'edit'])->name('standing.edit');
+    Route::put('/standings/{standing}', [StandingController::class, 'update'])->name('standing.update');
     });
 // endUserOnlyRoute
 
@@ -175,6 +182,10 @@ Route::group(['prefix' => 'admin', 'middleware' => ['isAdmin'], 'as' => 'admin.'
     Route::get('/tour/createfe', [TournamentController::class, 'createtourfe'])->name('createtourfe');
     Route::post('/tour/storefe', [TournamentController::class, 'storetourfe'])->name('storetourfe');
 
+        //standing
+        Route::get('/tournaments/{tournament}/standings', [StandingController::class, 'index'])->name('standing.index');
+        Route::get('/tournaments/{tournament}/standings/{standing}/edit', [StandingController::class, 'edit'])->name('standing.edit');
+        Route::put('/standings/{standing}', [StandingController::class, 'update'])->name('standing.update');
 
 
     Route::group(['prefix' => 'belajar'], function () {

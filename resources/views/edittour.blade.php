@@ -134,17 +134,18 @@
                                             <input type="text" class="form-control" id="format" name="format" value="{{ $data->format }}">
                                         </div>
                                         <div class="form-group">
-                                            <label for="jenis_pendaftaran">Jenis Pendaftaran</label>
-                                            <select class="form-select" id="jenis_pendaftaran" name="jenis_pendaftaran">
+                                            {{-- <label for="jenis_pendaftaran">Jenis Pendaftaran</label> --}}
+                                            {{-- <select class="form-select" id="jenis_pendaftaran" name="jenis_pendaftaran">
                                                 <option value="Individu" {{ $data->jenis_pendaftaran == 'Individu' ? 'selected' : '' }}>Individu</option>
                                                 <option value="Tim" {{ $data->jenis_pendaftaran == 'Tim' ? 'selected' : '' }}>Tim</option>
-                                            </select>
+                                            </select> --}}
+                                            <input type="hidden" class="form-control" id="jenis_pendaftaran" name="jenis_pendaftaran" value="Tim" readonly>
                                         </div>
-                                        <div class="form-group" id="jumlah_peserta_container">
+                                        {{-- <div class="form-group" id="jumlah_peserta_container">
                                             <label for="jumlah_peserta">Jumlah Peserta</label>
                                             <input type="number" class="form-control" id="jumlah_peserta" name="jumlah_peserta" value="{{ $data->registrationSetting ? $data->registrationSetting->jumlah_peserta : '' }}">
-                                        </div>
-                                        <div class="form-group" id="jumlah_anggota_tim_container" style="{{ $data->jenis_pendaftaran == 'Tim' ? '' : 'display:none;' }}">
+                                        </div> --}}
+                                        <div class="form-group" id="jumlah_anggota_tim_container">
                                             <label for="jumlah_anggota_tim">Jumlah Anggota Tim</label>
                                             <input type="number" class="form-control" id="jumlah_anggota_tim" name="jumlah_anggota_tim" value="{{ $data->jumlah_anggota_tim }}">
                                         </div>
@@ -157,6 +158,11 @@
                                     <div class="card-footer">
                                         <button type="submit" class="btn btn-primary">Submit</button>
                                     </div>
+                                    {{-- <div class="card-footer">
+                                        <a href="{{ route('pengguna_biasa.standing.index', $data->id) }}" class="btn btn-secondary">
+                                            <i class="fas fa-list-ol"></i> Manage Standings
+                                        </a>
+                                    </div> --}}
                                 </div>
                                 <!-- /.card -->
                             </div>
