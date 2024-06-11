@@ -25,19 +25,19 @@
                 <h1>Ganti Password</h1>
             </div>
             <div class="card-body">
-                <p class="login-box-msg">Masukkan E-Mail kamu yang terdaftar</p>
+                <p class="login-box-msg">Masukkan Password barumu</p>
 
                 <form action="{{ route('guest.forgotpasswordact') }}" method="post">
                     @csrf
                     <div class="input-group mb-3">
-                        <input type="email" name="email" class="form-control" placeholder="Email">
+                        <input type="password" name="password" class="form-control" placeholder="Password Baru">
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-envelope"></span>
                             </div>
                         </div>
                     </div>
-                    @error('email')
+                    @error('password')
                         <small>{{ $message }}</small>
                     @enderror
                     <div class="row">

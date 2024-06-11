@@ -26,7 +26,7 @@ use App\Http\Controllers\CommentController;
 
 // Route::get('/', [LoginController::class, 'index'])->name('login');
 Route::get('/', [GeneralController::class, 'home'])->name('home');
-Route::get('/authadmin', [LoginController::class, 'index'])->name('login');
+Route::get('/authadmin', [LoginController::class, 'index'])->name('loginadmin');
 
 Route::get('/enkripsi', [BelajarController::class, 'enkripsi'])->name('enkripsi');
 Route::get('/enkripsi-detail/{params}', [BelajarController::class, 'enkripsi_detail'])->name('enkripsi-detail');

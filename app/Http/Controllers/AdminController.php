@@ -29,11 +29,6 @@ class AdminController extends Controller
         return abort(403);
     }
 
-    public function indexkomentar(Request $request)
-    {
-        $data = Comment::all();
-        return view('indexkomentar', compact('data', 'request'));
-    }
 
     public function index(Request $request)
     {
@@ -89,6 +84,7 @@ class AdminController extends Controller
 
     public function store(Request $request)
     {
+        // dd($request->all());
         $request->validate([
             'image' => 'required|mimes:png,jpg,jpeg|max:2048',
             'name' => 'required',

@@ -61,6 +61,7 @@ class BeritaController extends Controller
             'judul'      => $request->judul,
             'isiberita'  => $request->isiberita,
             'photo'      => $filename,
+            'user_id'    => auth()->id(),
         ]);
 
         return redirect()->route('admin.berita.index');
