@@ -50,7 +50,7 @@
                             <div class="blog-post-content blog-details-content">
                                 <div class="blog-post-meta">
                                     <ul class="list-wrap">
-                                        <li>By<a href="#">Admin</a></li>
+                                        <li>By<a href="#">{{ $berita->user->name }}</a></li>
                                         <li><i class="far fa-calendar-alt"></i> {{ $berita->created_at->format('d M Y') }}</li>
                                         <li><i class="far fa-comments"></i><a href="#">No comments</a></li>
                                     </ul>
@@ -91,12 +91,11 @@
                         </div>
                         <div class="blog__avatar-wrap mb-65">
                             <div class="blog__avatar-img">
-                                <a href="#"><img src="{{asset('assetsmigrate/img/blog/avatar.jpg')}}" alt="img"></a>
+                                <a href="#"><img src="{{asset('storage/photo-user/' . $berita->user->image) }}" alt="img"></a>
                             </div>
                             <div class="blog__avatar-info">
                                 <span class="designation">Ditulis oleh:</span>
-                                <h4 class="name"><a href="#">Admin</a></h4>
-                                <p>Berita ini </p>
+                                <h4 class="name"><a href="#">{{ $berita->user->name }}</a></h4>
                             </div>
                         </div>
                         <div class="comments-wrap">
@@ -137,6 +136,7 @@
                         <p>Please <a href="{{ route('guest.login') }}">login</a> to leave a comment.</p>
                         @endauth
                     </div>
+
                     <div class="blog-post-sidebar">
                         <aside class="blog-sidebar">
                             <div class="blog-widget">

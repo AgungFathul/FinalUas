@@ -8,7 +8,8 @@
     <meta name="theme-color" content="#6777ef" />
     <link rel="apple-touch-icon" href="{{ asset('logo.PNG') }}">
     <link rel="manifest" href="{{ asset('/manifest.json') }}">
-    <title>AdminLTE 3 | Dashboard</title>
+    <title>GASLogin</title>
+    <link rel="shortcut icon" href="{{ asset('assets/images/fav.png') }}" type="image/svg+xml">
 
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
@@ -46,9 +47,9 @@
     <div class="wrapper">
 
         <!-- Preloader -->
-        <div class="preloader flex-column justify-content-center align-items-center">
-            <img class="animation__shake" src="dist/img/AdminLTELogo.png" alt="AdminLTELogo" height="60"
-                width="60">
+        <div class="preloader flex-column justify-content-center align-items-center" style="background-color: #0f161b;">
+            <img class="animation__shake" src="{{ asset('assets/images/logo.png') }}" alt="Gaslogin" height="200"
+                width="200">
         </div>
 
         <!-- Navbar -->
@@ -62,13 +63,10 @@
                 <li class="nav-item d-none d-sm-inline-block">
                     <a href="{{ Auth::check() && Auth::user()->hasRole('pengguna_biasa') ? route('home') : route('admin.dashboard') }}" class="nav-link">Home</a>
                 </li>
-                <li class="nav-item d-none d-sm-inline-block">
-                    <a href="#" class="nav-link">Contact</a>
-                </li>
             </ul>
 
             <!-- Right navbar links -->
-            <ul class="navbar-nav ml-auto">
+            {{-- <ul class="navbar-nav ml-auto">
                 <!-- Navbar Search -->
                 <li class="nav-item">
                     <a class="nav-link" data-widget="navbar-search" href="#" role="button">
@@ -166,7 +164,7 @@
                         <i class="fas fa-th-large"></i>
                     </a>
                 </li>
-            </ul>
+            </ul> --}}
         </nav>
         <!-- /.navbar -->
 
@@ -176,9 +174,7 @@
     <!-- Brand Logo -->
     <div class="info">
         <center>
-    <a href="index3.html" class="brand-link d-block">
-      <img src="{{ asset('lte/dist/img/AdminLTELogo.png') }}" alt="AdminLTE Logo" class="img-circle elevation-3" style="width: 10vh; height:10vh;">
-    </a>
+      <img src="{{ asset('assets/images/logo.png') }}" alt="AdminLTE Logo" style="width: 20vh; height:20vh;">
 </center>
 </div>
 
@@ -247,7 +243,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ Auth::check() && Auth::user()->hasRole('pengguna_biasa') ? route('pengguna_biasa.logout') : route('logout') }}" class="nav-link">
+                            <a href="{{ Auth::check() && Auth::user()->hasRole('pengguna_biasa') ? route('pengguna_biasa.logout') : route('loginadmin') }}" class="nav-link">
                                 <i class="nav-icon fas fa-th"></i>
                                 <p>
                                     Logout
@@ -267,10 +263,10 @@
         @yield('content')
         <!-- /.content-wrapper -->
         <footer class="main-footer">
-            <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong>
+            <strong>Copyright &copy; 2024 GASLogin</strong>
             All rights reserved.
             <div class="float-right d-none d-sm-inline-block">
-                <b>Version</b> 3.2.0
+                <b>Version</b> 1.0.0
             </div>
         </footer>
 

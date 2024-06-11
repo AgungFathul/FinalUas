@@ -36,6 +36,7 @@
                       <!-- form start -->
                       <form>
                         <div class="card-body">
+                          <input type="hidden" name="user_id" value="{{ auth()->id() }}">
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Photo Berita</label>
                                 <input type="file" class="form-control" id="exampleInputEmail1" name="photoberita" style="height: 40px">

@@ -47,5 +47,9 @@ class Tournament extends Model
         return $this->hasMany(Standing::class);
     }
     
+    public function teams()
+    {
+        return $this->hasMany(Team::class);
+    }
 
 }

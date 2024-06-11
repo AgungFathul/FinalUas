@@ -70,8 +70,8 @@
                                                 <td>{{ $d->jadwal_selesai }}</td>
                                                 <td>{{ $d->tipe }}</td>
                                                 <td>
-                                                    {{-- <a href="{{ route('admin.berita.detail', ['id' => $d->id]) }}"
-                                                        class="btn btn-info"><i class="fas fa-eye"></i> Detail</a> --}}
+                                                    <a href="{{ route('admin.tour.detail', ['id' => $d->id]) }}"
+                                                        class="btn btn-info"><i class="fas fa-eye"></i> Detail</a>
                                                     <a href="{{ route('admin.tour.edit', ['id' => $d->id]) }}"
                                                         class="btn btn-primary"><i class="fas fa-pen"></i> Edit</a>
                                                     <a data-toggle="modal" data-target="#modal-hapus{{ $d->id }}"

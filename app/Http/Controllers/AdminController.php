@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Validator;
 use Barryvdh\DomPDF\Facade\Pdf;
 use App\Models\Berita;
 use App\Models\Game;
+use App\Models\Tournament;
 use App\Models\Comment;
 use Illuminate\Support\Facades\Auth;
 
@@ -24,16 +25,14 @@ class AdminController extends Controller
     public function dashboard()
     {
         $userCount = User::count();
-        return view('dashboard', ['userCount' => $userCount]);
+        $beritacount = Berita::count();
+        $tourcount = Tournament::count();
+        $komentarcount = Comment::count();
+        return view('dashboard', ['userCount' => $userCount, 'beritacount' => $beritacount, 'tourcount' => $tourcount, 'komentarcount' => $komentarcount]);
 
         return abort(403);
     }
 
-    public function indexkomentar(Request $request)
-    {
-        $data = Comment::all();
-        return view('indexkomentar', compact('data', 'request'));
-    }
 
     public function index(Request $request)
     {
@@ -89,6 +88,7 @@ class AdminController extends Controller
 
     public function store(Request $request)
     {
+        // dd($request->all());
         $request->validate([
             'image' => 'required|mimes:png,jpg,jpeg|max:2048',
             'name' => 'required',
