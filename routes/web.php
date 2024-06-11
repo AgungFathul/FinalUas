@@ -183,8 +183,6 @@ Route::group(['prefix' => 'admin', 'middleware' => ['isAdmin'], 'as' => 'admin.'
     Route::post('/tour/storefe', [TournamentController::class, 'storetourfe'])->name('storetourfe');
 
     //standing
-    Route::get('/tournaments/{tournament}/standings/addteam', [StandingController::class, 'create'])->name('standing.create');
-    Route::post('/tournaments/{tournament}/standings/addteam', [StandingController::class, 'store'])->name('standing.store');
     Route::get('/tournaments/{tournament}/standings', [StandingController::class, 'index'])->name('standing.index');
     Route::get('/tournaments/{tournament}/standings/{standing}/edit', [StandingController::class, 'edit'])->name('standing.edit');
     Route::put('/standings/{standing}', [StandingController::class, 'update'])->name('standing.update');
