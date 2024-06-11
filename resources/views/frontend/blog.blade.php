@@ -87,78 +87,42 @@
                             </div>
                         </div>
                         <div class="comments-wrap">
-                            <h4 class="comments-wrap-title">3 Comments</h4>
+                            <h4 class="comments-wrap-title">{{ $berita->comments->count() }} Comments</h4>
                             <div class="latest-comments">
                                 <ul class="list-wrap">
+                                    @foreach($berita->comments as $comment)
                                     <li>
                                         <div class="comments-box">
                                             <div class="comments-avatar">
-                                                <img src="assets/img/blog/comment01.png" alt="img">
+                                                <img src="{{ asset('lte\dist\img\avatar.png') }}" alt="img">
                                             </div>
                                             <div class="comments-text">
                                                 <div class="avatar-name">
-                                                    <h6 class="name">John William <a href="#" class="comment-reply-link"><i class="fas fa-reply"></i> Reply</a></h6>
-                                                    <span class="date">September 6, 2024</span>
+                                                    <h6 class="name">{{ $comment->user->name }} <a href="#" class="comment-reply-link"><i class="fas fa-reply"></i> Reply</a></h6>
+                                                    <span class="date">{{ $comment->created_at->format('d M Y') }}</span>
                                                 </div>
-                                                <p>Axcepteur sint occaecat atat non proident, sunt culpa officia deserunt mollit anim id est labor umLor emdolor uni enim ad minim veniam quis nostrud today.</p>
-                                            </div>
-                                        </div>
-                                        <ul class="children">
-                                            <li>
-                                                <div class="comments-box">
-                                                    <div class="comments-avatar">
-                                                        <img src="assets/img/blog/comment02.png" alt="img">
-                                                    </div>
-                                                    <div class="comments-text">
-                                                        <div class="avatar-name">
-                                                            <h6 class="name">Hanry Foul <a href="#" class="comment-reply-link"><i class="fas fa-reply"></i> Reply</a></h6>
-                                                            <span class="date">September 6, 2024</span>
-                                                        </div>
-                                                        <p>Axcepteur sint occaecat atat non proident, sunt culpa officia deserunt mollit anim id est labor enim ad minim veniam quis nostrud today.</p>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li>
-                                        <div class="comments-box">
-                                            <div class="comments-avatar">
-                                                <img src="assets/img/blog/comment03.png" alt="img">
-                                            </div>
-                                            <div class="comments-text">
-                                                <div class="avatar-name">
-                                                    <h6 class="name">Luna Rose <a href="#" class="comment-reply-link"><i class="fas fa-reply"></i> Reply</a></h6>
-                                                    <span class="date">September 6, 2024</span>
-                                                </div>
-                                                <p>Axcepteur sint occaecat atat non proident, sunt culpa officia deserunt mollit anim id est labor umLor emdolor eam enim ad minim veniam quis nostrud today.</p>
+                                                <p>{{ $comment->comment }}</p>
                                             </div>
                                         </div>
                                     </li>
+                                    @endforeach
                                 </ul>
                             </div>
                         </div>
+                        @auth
                         <div class="comment-respond">
                             <h3 class="comment-reply-title">Leave a Reply</h3>
-                            <form class="comment-form" action="#">
-                                <p class="comment-notes">Email address will not be published. Required fields are marked *</p>
-                                <div class="row">
-                                    <div class="col-sm-6">
-                                        <div class="form-grp">
-                                            <input type="text" placeholder="Name *">
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <div class="form-grp">
-                                            <input type="email" placeholder="Email *">
-                                        </div>
-                                    </div>
-                                </div>
+                            <form class="comment-form" action="{{ route('pengguna_biasa.comments.store', $berita->id) }}" method="POST">
+                                @csrf
                                 <div class="form-grp">
-                                    <textarea name="message" placeholder="Comment *"></textarea>
+                                    <textarea name="comment" placeholder="Comment *"></textarea>
                                 </div>
                                 <button type="submit">Post Comment</button>
                             </form>
                         </div>
+                        @else
+                        <p>Please <a href="{{ route('guest.login') }}">login</a> to leave a comment.</p>
+                        @endauth
                     </div>
                     <div class="blog-post-sidebar">
                         <aside class="blog-sidebar">

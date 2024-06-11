@@ -10,4 +10,9 @@ class Berita extends Model
     use HasFactory;
 
     protected $fillable = ['judul', 'isiberita', 'photo'];
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
 }

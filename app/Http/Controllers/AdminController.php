@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Validator;
 use Barryvdh\DomPDF\Facade\Pdf;
 use App\Models\Berita;
 use App\Models\Game;
+use App\Models\Comment;
 use Illuminate\Support\Facades\Auth;
 
 class AdminController extends Controller
@@ -26,6 +27,12 @@ class AdminController extends Controller
         return view('dashboard', ['userCount' => $userCount]);
 
         return abort(403);
+    }
+
+    public function indexkomentar(Request $request)
+    {
+        $data = Comment::all();
+        return view('indexkomentar', compact('data', 'request'));
     }
 
     public function index(Request $request)

@@ -11,6 +11,7 @@ use App\Http\Controllers\GuestController;
 use App\Http\Controllers\GeneralController;
 use App\Http\Controllers\TournamentController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CommentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -108,6 +109,8 @@ Route::get('locale/{locale}', function ($locale) {
         Route::get('/tour/createfe', [TournamentController::class, 'createtourfe'])->name('createtourfe');
         Route::post('/tour/storefe', [TournamentController::class, 'storetourfe'])->name('storetourfe');
         Route::post('/tournament/register/{id}', [TournamentController::class, 'register'])->name('tour.register');
+
+        Route::post('/berita/{berita}/comments', [CommentController::class, 'store'])->name('comments.store');
     });
 // endUserOnlyRoute
 
@@ -121,6 +124,7 @@ Route::post('/validasi-forgot-password-act', [LoginController::class, 'validasi_
 
 Route::post('/login-proses', [LoginController::class, 'login_proses'])->name('login-proses');
 Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
+Route::get('/logoutuser', [LoginController::class, 'logoutuser'])->name('logoutuser');
 
 Route::get('/register', [LoginController::class, 'register'])->name('register');
 Route::post('/register-proses', [LoginController::class, 'register_proses'])->name('register-proses');
@@ -132,6 +136,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['isAdmin'], 'as' => 'admin.'
     Route::get('/assets', [AdminController::class, 'assets'])->name('assets');
     Route::get('/create', [AdminController::class, 'create'])->name('admin.create');
     Route::post('/store', [AdminController::class, 'store'])->name('admin.store');
+    Route::get('/komentar', [CommentController::class, 'indexkomentar'])->name('admin.komentar');
+    Route::get('/komentar/rank', [CommentController::class, 'rank'])->name('admin.komentar.rank');
 
     Route::get('/clientside', [DataTableController::class, 'clientside'])->name('clientside');
     Route::get('/serverside', [DataTableController::class, 'serverside'])->name('serverside');
