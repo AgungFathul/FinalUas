@@ -11,6 +11,19 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&family=Poppins:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        .jam-style {
+            font-size: 24px;
+            font-weight: bold;
+            color: #ff5722; /* Warna oranye */
+            background-color: #0f161b; /* Latar belakang abu-abu muda */
+            padding: 10px;
+            border-radius: 5px;
+            text-align: center;
+            margin-top: 10px;
+        }
+    </style>
+    
     {{-- <link
             rel="stylesheet"
             href="{{asset('assetsmigrate/css/plugins.css')}}"
@@ -155,11 +168,13 @@
                                 </div>
                             </div>
                             <div class="blog-widget">
-                                <h4 class="fw-title">Newsletter</h4>
+                                <h4 class="fw-title">Jam Hari ini</h4>
                                 <div class="sidebar__newsletter">
-                                    <p>Lorem ipsum sitamet conteur adipiscin</p>
+                                    <p id="current-time" class="jam-style"></p>
+
                                 </div>
                             </div>
+                            
                             <div class="blog-widget">
                                 <h4 class="fw-title">Tag Cloud</h4>
                                 <div class="tagcloud">
@@ -179,7 +194,20 @@
         <!-- blog-area-end -->
 
     </main>
-
+    <script>
+        function updateTime() {
+            const now = new Date();
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+            const currentTime = `${hours}:${minutes}:${seconds}`;
+            document.getElementById('current-time').textContent = currentTime;
+        }
+    
+        setInterval(updateTime, 1000);
+        updateTime(); // initial call to set the time immediately
+    </script>
+    
     @extends('spatial.footer')
 </body>
 </html>
