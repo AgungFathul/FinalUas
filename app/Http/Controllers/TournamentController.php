@@ -43,12 +43,14 @@ class TournamentController extends Controller
         
         $query = Tournament::with('game');
 
-        // if (Auth::user()->hasRole('pengguna_biasa')) {
-        //     $query->where('user_id', Auth::user()->id);
-        //     $view = 'frontend.indextouruser';
-        // } else {
-        //     $view = 'indextour';
-        // }
+        if (Auth::user()->hasRole('pengguna_biasa')) {
+            $query->where('user_id', Auth::user()->id);
+            $view = 'frontend.indextouruser';
+        } else if (Auth::user()->hasRole('admin')){
+            $view = 'indextour';
+        } else {
+            return redirect()->route('guest.login');
+        }
 
         if ($request->has('search')) {
             $search = $request->input('search');
@@ -59,10 +61,8 @@ class TournamentController extends Controller
         }
 
         $data = $query->get();
-        
 
-        return view('indextour', compact('data', 'request'));
-        // return view($view, compact('data', 'request'));
+        return view($view, compact('data', 'request'));
     }
     
     
@@ -73,7 +73,7 @@ class TournamentController extends Controller
 
     public function storetourfe(Request $request): RedirectResponse
     {
-        // dd($request->all());
+
         $validator = Validator::make($request->all(), [
             'user_id'         => 'required|exists:users,id',
             'game_id'         => 'required|exists:games,id',
@@ -158,20 +158,30 @@ class TournamentController extends Controller
     {
        
         $games = Game::all(); // Ambil semua game dari database
-        return view('createtour', compact('games'));
 
-        // if (Auth::check() && Auth::user()->hasRole('pengguna_biasa'))
-        // {
-        //     return view('frontend.createtouruser', compact('games'));
-        // } else if (Auth::check() && Auth::user()->hasRole('admin'))
-        // {
-        //     return view('createtour', compact('games'));
-        // } 
+        if (Auth::check() && Auth::user()->hasRole('pengguna_biasa'))
+        {
+            return view('frontend.createtouruser', compact('games'));
+        } else if (Auth::check() && Auth::user()->hasRole('admin'))
+        {
+            return view('createtour', compact('games'));
+        } else {
+            return redirect()->route('guest.login');
+        }
 
     }
 
     public function storetour(Request $request): RedirectResponse
     {
+        $redirect = null;
+    
+        if (Auth::user()->hasRole('pengguna_biasa')) {
+            $redirect = 'pengguna_biasa.tour.index';
+        } else if (Auth::user()->hasRole('admin')) {
+            $redirect = 'admin.tour.index';
+        } else {
+            return redirect()->route('guest.login');
+        }
         // dd($request->all());
         $validator = Validator::make($request->all(), [
             'user_id'         => 'required|exists:users,id',
@@ -250,15 +260,11 @@ class TournamentController extends Controller
             'batas_pendaftaran' => $request->batas_pendaftaran,
         ]);
 
-        return redirect()->route('admin.tour.index');
-        // if (Auth::check() && Auth::user()->hasRole('pengguna_biasa'))
-        // {
-        //     return redirect()->route('pengguna_biasa.tour.index');
-        // } else if (Auth::check() && Auth::user()->hasRole('admin'))
-        // {
-        //     return redirect()->route('admin.tour.index')->with('success', 'Turnamen berhasil dibuat!');
-        // } 
-        // return redirect()->back()->with('error','Unexpected Error');
+        if ($redirect) {
+            return redirect()->route($redirect)->with('success', 'Tournament created successfully.');
+        } else {
+            return redirect()->route('guest.login')->with('error', 'An error occurred.');
+        }
     }
 
     public function edittour(Request $request, $id)
@@ -266,29 +272,38 @@ class TournamentController extends Controller
         $data = Tournament::with('registrationSetting')->findOrFail($id);
         $games = Game::all(); // Mengambil semua game dari database
 
-        // if (Auth::check()) {
-        //     $user = Auth::user();
+        if (Auth::check()) {
+            $user = Auth::user();
 
-        //     // Check if the user is a regular user and not the owner of the tournament
-        //     if ($user->hasRole('pengguna_biasa') && $data->user_id != $user->id) {
-        //         return redirect()->back()->with('error', 'You do not have permission to edit this tournament.');
-        //     }
+            // Check if the user is a regular user and not the owner of the tournament
+            if ($user->hasRole('pengguna_biasa') && $data->user_id != $user->id) {
+                return redirect()->back()->with('error', 'You do not have permission to edit this tournament.');
+            }
 
-        //     // Load the appropriate view based on the user's role
-        //     if ($user->hasRole('pengguna_biasa')) {
-        //         return view('frontend.edittouruser', compact('data', 'games'));
-        //     } else if ($user->hasRole('admin')) {
-        //         return view('edittour', compact('data', 'games'));
-        //     }
-        // }
+            // Load the appropriate view based on the user's role
+            if ($user->hasRole('pengguna_biasa')) {
+                return view('frontend.edittouruser', compact('data', 'games'));
+            } else if ($user->hasRole('admin')) {
+                return view('edittour', compact('data', 'games'));
+            }
+        }
 
-        // return redirect()->back()->with('error', 'Unexpected Error');
+        return redirect()->back()->with('error', 'Unexpected Error');
 
-        return view('edittour', compact('data', 'games'));
     }
 
     public function updatetour(Request $request, $id): RedirectResponse
     {
+        // $redirect = null;
+    
+        // if (Auth::user()->hasRole('pengguna_biasa')) {
+        //     $redirect = 'pengguna_biasa.tour.index';
+        // } else if (Auth::user()->hasRole('admin')) {
+        //     $redirect = 'admin.tour.index';
+        // } else {
+        //     return redirect()->route('guest.login');
+        // }
+        
         $validator = Validator::make($request->all(), [
             'nama'            => 'required',
             'url'             => 'required',
@@ -361,15 +376,20 @@ class TournamentController extends Controller
             'batas_pendaftaran' => $request->batas_pendaftaran,
         ]);
 
-        // if (Auth::check() && Auth::user()->hasRole('pengguna_biasa'))
-        // {
-        //     return redirect()->route('pengguna_biasa.tour.index')->with('success', 'Turnamen berhasil diperbarui!');
-        // } else if (Auth::check() && Auth::user()->hasRole('pengguna_biasa'))
-        // {
-        //     return redirect()->route('admin.tour.index')->with('success', 'Turnamen berhasil diperbarui!');
+        if (Auth::check() && Auth::user()->hasRole('pengguna_biasa'))
+        {
+            return redirect()->route('pengguna_biasa.tour.index')->with('success', 'Turnamen berhasil diperbarui!');
+        } else if (Auth::check() && Auth::user()->hasRole('pengguna_biasa'))
+        {
+            return redirect()->route('admin.tour.index')->with('success', 'Turnamen berhasil diperbarui!');
+        }
+        return redirect()->back()->with('error','Unexpected Error');
+
+        // if ($redirect) {
+        //     return redirect()->route($redirect)->with('success', 'Tournament created successfully.');
+        // } else {
+        //     return redirect()->route('guest.login')->with('error', 'An error occurred.');
         // }
-        // return redirect()->back()->with('error','Unexpected Error');
-        return redirect()->route('admin.tour.index')->with('success', 'Turnamen berhasil diperbarui!');
     }
 
 
@@ -377,25 +397,24 @@ class TournamentController extends Controller
     public function deletetour($id)
     {
         $data = Tournament::findOrFail($id);
-        if ($data) {
-            $data->forceDelete();
+
+        if (Auth::check()) {
+            $user = Auth::user();
+
+            // Check if the user is an admin or the owner of the tournament
+            if ($user->hasRole('admin') || ($user->hasRole('pengguna_biasa') && $data->user_id == $user->id)) {
+                $data->forceDelete();
+                if ($user->hasRole('admin')) {
+                    return redirect()->route('admin.tour.index')->with('success', 'Tournament deleted successfully!');
+                } else {
+                    return redirect()->route('pengguna_biasa.tour.index')->with('success', 'Tournament deleted successfully!');
+                }
+            } else {
+                return redirect()->back()->with('error', 'You do not have permission to delete this tournament.');
+            }
         }
 
-        return redirect()->route('admin.tour.index')->with('success', 'Turnamen berhasil dihapus!');
-
-        // if (Auth::check()) {
-        //     $user = Auth::user();
-
-        //     // Check if the user is an admin or the owner of the tournament
-        //     if ($user->hasRole('admin') || ($user->hasRole('pengguna_biasa') && $data->user_id == $user->id)) {
-        //         $data->forceDelete();
-        //         return redirect()->route('tour.index')->with('success', 'Tournament deleted successfully!');
-        //     } else {
-        //         return redirect()->back()->with('error', 'You do not have permission to delete this tournament.');
-        //     }
-        // }
-
-        // return redirect()->back()->with('error', 'Unexpected Error, Try to log in again');
+        return redirect()->back()->with('error', 'Unexpected Error, Try to log in again');
     }
 
 }

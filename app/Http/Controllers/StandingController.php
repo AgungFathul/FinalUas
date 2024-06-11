@@ -19,27 +19,40 @@ class StandingController extends Controller
         $standingsArray = DB::select('CALL GetStandingsRanking(?)', [$tournament->id]);
         // Ubah jadi Collection
         $standings = collect($standingsArray);
-        return view('indexstanding', compact('standings', 'tournament'));
         
         
-        // if (Auth::user()->hasRole('pengguna_biasa')) {
-        //     return view('frontend.indexstanding', compact('standings', 'tournament'));
-        // } else if (Auth::user()->hasRole('admin')) {
-        //     return view('indexstanding', compact('standings', 'tournament'));
-        // }
+        if (Auth::user()->hasRole('pengguna_biasa')) {
+            return view('frontend.indexstandinguser', compact('standings', 'tournament'));
+        } else if (Auth::user()->hasRole('admin')) {
+            return view('indexstanding', compact('standings', 'tournament'));
+        }
     }
 
     public function edit(Tournament $tournament, Standing $standing)
     {
-        if ($standing->tournament_id !== $tournament->id) {
-            abort(404);
-        }
+        // if ($standings->tournament_id !== $tournament->id) {
+        //     abort(404);
+        // }
 
-        return view('editstanding', compact('standing', 'tournament'));
+        if (Auth::user()->hasRole('pengguna_biasa')) {
+            return view('frontend.editstandinguser', compact('standing', 'tournament'));
+        } else if (Auth::user()->hasRole('admin')) {
+            return view('editstanding', compact('standing', 'tournament'));
+        }
     }
 
     public function update(Request $request, Standing $standing)
     {
+        // $redirect = null;
+    
+        // if (Auth::user()->hasRole('pengguna_biasa')) {
+        //     $redirect = 'pengguna_biasa.standing.index';
+        // } else if (Auth::user()->hasRole('admin')) {
+        //     $redirect = 'admin.standing.index';
+        // } else {
+        //     return redirect()->route('guest.login');
+        // }
+
         $validatedData = $request->validate([
             'win' => 'required|integer|min:0',
             'lose' => 'required|integer|min:0',
@@ -54,8 +67,20 @@ class StandingController extends Controller
             'wr' => $winRate,
         ]);
 
-        return redirect()->route('admin.standing.index', $standing->tournament_id)
-            ->with('success', 'Standing updated successfully');
+        if (Auth::check() && Auth::user()->hasRole('pengguna_biasa'))
+        {
+            return redirect()->route('pengguna_biasa.standing.index', $standing->tournament_id)->with('success', 'Standings berhasil diperbarui!');
+        } else if (Auth::check() && Auth::user()->hasRole('admin'))
+        {
+            return redirect()->route('admin.standing.index', $standing->tournament_id)->with('success', 'Standings berhasil diperbarui!');
+        }
+        return redirect()->back()->with('error','Unexpected Error');
+
+        // if ($redirect) {
+        //     return redirect()->route($redirect, $standing->tournament_id)->with('success', 'Standing created successfully.');
+        // } else {
+        //     return redirect()->route('guest.login')->with('error', 'An error occurred.');
+        // }
     }
 
     // public function create(Tournament $tournament)

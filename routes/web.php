@@ -114,9 +114,9 @@ Route::get('locale/{locale}', function ($locale) {
         Route::post('/tournament/register/{id}', [TournamentController::class, 'register'])->name('tour.register');
 
         //standing
-        Route::get('/tournaments/{tournament}/standings', [StandingController::class, 'index'])->name('standing.index');
-        Route::get('/tournaments/{tournament}/standings/{standing}/edit', [StandingController::class, 'edit'])->name('standing.edit');
-        Route::put('/standings/{standing}', [StandingController::class, 'update'])->name('standing.update');
+            Route::get('/tournaments/{tournament}/standings', [StandingController::class, 'index'])->name('standing.index');
+            Route::get('/tournaments/{tournament}/standings/{standing}/edit', [StandingController::class, 'edit'])->name('standing.edit');
+            Route::put('/standings/{standing}', [StandingController::class, 'update'])->name('standing.update');
 
         //berita
         Route::post('/berita/{berita}/comments', [CommentController::class, 'store'])->name('comments.store');

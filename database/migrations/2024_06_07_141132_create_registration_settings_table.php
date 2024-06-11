@@ -12,7 +12,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('tournament_id');
             $table->string('jenis')->default('Tim');
-            // $table->integer('jumlah_peserta')->nullable();
+            $table->integer('jumlah_peserta')->nullable();
             $table->integer('jumlah_anggota_tim')->nullable();
             $table->date('batas_pendaftaran');
             $table->timestamps();
