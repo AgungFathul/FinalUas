@@ -16,6 +16,7 @@ class RegistrationSetting extends Model
         // 'jumlah_peserta',
         'jumlah_anggota_tim',
         'batas_pendaftaran',
+        'slot_tersisa',
     ];
 
     public function tournament()

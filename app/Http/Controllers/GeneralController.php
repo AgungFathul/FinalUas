@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\Tournament; 
-
+use App\Models\FaQ;
 use App\Models\Berita;
 
 class GeneralController extends Controller
@@ -59,6 +59,12 @@ class GeneralController extends Controller
     }
     public function tournament(){
         return view('frontend/tournament');
+    }
+
+    public function showFaq()
+    {
+        $faqs = Faq::all(); // Assuming you have a Faq model and table
+        return view('frontend.faq', compact('faqs'));
     }
 
 }

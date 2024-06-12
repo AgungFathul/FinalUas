@@ -170,22 +170,23 @@
 
         <!-- Main Sidebar Container -->
         <!-- Main Sidebar Container -->
-  <aside class="main-sidebar sidebar-dark-primary elevation-4">
-    <!-- Brand Logo -->
-    <div class="info">
-        <center>
-      <img src="{{ asset('assets/images/logo.png') }}" alt="AdminLTE Logo" style="width: 20vh; height:20vh;">
-</center>
-</div>
+        <aside class="main-sidebar sidebar-dark-primary elevation-4">
+            <!-- Brand Logo -->
+            <div class="info">
+                <center>
+                    <img src="{{ asset('assets/images/logo.png') }}" alt="AdminLTE Logo"
+                        style="width: 20vh; height:20vh;">
+                </center>
+            </div>
 
-    <!-- Sidebar -->
-    <div class="sidebar">
-      <!-- Sidebar user panel (optional) -->
-      <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-        <div class="info">
-          <a href="#" class="d-block">{{Auth::user()->name}}</a>
-        </div>
-      </div>
+            <!-- Sidebar -->
+            <div class="sidebar">
+                <!-- Sidebar user panel (optional) -->
+                <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+                    <div class="info">
+                        <a href="#" class="d-block">{{ Auth::user()->name }}</a>
+                    </div>
+                </div>
 
                 <!-- Sidebar Menu -->
                 <nav class="mt-2">
@@ -193,64 +194,76 @@
                         data-accordion="false">
 
                         @if (Auth::check() && Auth::user()->hasRole('admin'))
-                        <li class="nav-item">
-                            <a href="{{ route('admin.dashboard') }}" class="nav-link">
-                                <i class="nav-icon fas fa-th"></i>
-                                <p>
-                                    Dashboard
-                                </p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('admin.index') }}" class="nav-link">
-                                <i class="nav-icon fas fa-th"></i>
-                                <p>
-                                    Users
-                                </p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('admin.game.index') }}" class="nav-link">
-                                <i class="nav-icon fas fa-th"></i>
-                                <p>
-                                    Game
-                                </p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('admin.berita.index') }}" class="nav-link">
-                                <i class="nav-icon fas fa-th"></i>
-                                <p>
-                                    Berita
-                                </p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('admin.admin.komentar') }}" class="nav-link">
-                                <i class="nav-icon fas fa-th"></i>
-                                <p>
-                                    Komentar
-                                </p>
-                            </a>
-                        </li>
+                            <li class="nav-item">
+                                <a href="{{ route('admin.dashboard') }}" class="nav-link">
+                                    <i class="nav-icon fas fa-th"></i>
+                                    <p>
+                                        Dashboard
+                                    </p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('admin.index') }}" class="nav-link">
+                                    <i class="nav-icon fas fa-th"></i>
+                                    <p>
+                                        Users
+                                    </p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('admin.game.index') }}" class="nav-link">
+                                    <i class="nav-icon fas fa-th"></i>
+                                    <p>
+                                        Game
+                                    </p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('admin.berita.index') }}" class="nav-link">
+                                    <i class="nav-icon fas fa-th"></i>
+                                    <p>
+                                        Berita
+                                    </p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('admin.admin.komentar') }}" class="nav-link">
+                                    <i class="nav-icon fas fa-th"></i>
+                                    <p>
+                                        Komentar
+                                    </p>
+                                </a>
+                            </li>
                         @endif
                         <li class="nav-item">
-                            <a href="{{ Auth::check() && Auth::user()->hasRole('pengguna_biasa') ? route('pengguna_biasa.tour.index') : route('admin.tour.index') }}" class="nav-link">
+                            <a href="{{ Auth::check() && Auth::user()->hasRole('pengguna_biasa') ? route('pengguna_biasa.tour.index') : route('admin.tour.index') }}"
+                                class="nav-link">
                                 <i class="nav-icon fas fa-th"></i>
                                 <p>
                                     Tournament
                                 </p>
                             </a>
                         </li>
+                        @if (Auth::check() && Auth::user()->hasRole('admin'))
                         <li class="nav-item">
-                            <a href="{{ Auth::check() && Auth::user()->hasRole('pengguna_biasa') ? route('pengguna_biasa.logout') : route('loginadmin') }}" class="nav-link">
+                            <a href="{{ route('admin.faq.index') }}" class="nav-link">
+                                <i class="nav-icon fas fa-th"></i>
+                                <p>
+                                    FaQ
+                                </p>
+                            </a>
+                        </li>
+                        @endif
+                        <li class="nav-item">
+                            <a href="{{ Auth::check() && Auth::user()->hasRole('pengguna_biasa') ? route('pengguna_biasa.logout') : route('loginadmin') }}"
+                                class="nav-link">
                                 <i class="nav-icon fas fa-th"></i>
                                 <p>
                                     Logout
                                 </p>
                             </a>
                         </li>
-                        
+
 
                     </ul>
                 </nav>

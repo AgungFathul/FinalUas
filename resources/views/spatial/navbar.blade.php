@@ -52,6 +52,10 @@
           <li>
             <a href="{{route ('contact')}}" class="navbar-link">Contact</a>
           </li>
+
+          <li>
+            <a href="{{route ('faq')}}" class="navbar-link">FaQ</a>
+          </li>
         </ul>
 
         <ul class="nav-social-list">
