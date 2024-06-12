@@ -242,6 +242,16 @@
                                 </p>
                             </a>
                         </li>
+                        @if (Auth::check() && Auth::user()->hasRole('admin'))
+                        <li class="nav-item">
+                            <a href="{{ route('admin.faq.index') }}" class="nav-link">
+                                <i class="nav-icon fas fa-th"></i>
+                                <p>
+                                    FaQ
+                                </p>
+                            </a>
+                        </li>
+                        @endif
                         <li class="nav-item">
                             <a href="{{ Auth::check() && Auth::user()->hasRole('pengguna_biasa') ? route('pengguna_biasa.logout') : route('loginadmin') }}" class="nav-link">
                                 <i class="nav-icon fas fa-th"></i>

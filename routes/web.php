@@ -13,6 +13,7 @@ use App\Http\Controllers\StandingController;
 use App\Http\Controllers\TournamentController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\FaQController;
 
 /*
 |--------------------------------------------------------------------------
@@ -60,6 +61,8 @@ Route::get('locale/{locale}', function ($locale) {
     Route::post('/tournament/register', [TournamentController::class, 'registertim'])->name('tournamentregister');
     Route::post('/tour/storefe', [TournamentController::class, 'storetourfe'])->name('storetourfe');
     Route::get('/tour/createfe', [TournamentController::class, 'createtourfe'])->name('createtourfe');
+    Route::get('/faq', [GeneralController::class, 'showFaq'])->name('faq');
+
     
 // endGeneralRoute
 
@@ -115,10 +118,12 @@ Route::get('locale/{locale}', function ($locale) {
 
         Route::post('/berita/{berita}/comments', [CommentController::class, 'store'])->name('comments.store');
 
+        Route::get('/chat', [UserController::class,'chat'])->name('chat');
+
             //standing
-    Route::get('/tournaments/{tournament}/standings', [StandingController::class, 'index'])->name('standing.index');
-    Route::get('/tournaments/{tournament}/standings/{standing}/edit', [StandingController::class, 'edit'])->name('standing.edit');
-    Route::put('/standings/{standing}', [StandingController::class, 'update'])->name('standing.update');
+        Route::get('/tournaments/{tournament}/standings', [StandingController::class, 'index'])->name('standing.index');
+        Route::get('/tournaments/{tournament}/standings/{standing}/edit', [StandingController::class, 'edit'])->name('standing.edit');
+        Route::put('/standings/{standing}', [StandingController::class, 'update'])->name('standing.update');
     });
 // endUserOnlyRoute
 
@@ -169,6 +174,13 @@ Route::group(['prefix' => 'admin', 'middleware' => ['isAdmin'], 'as' => 'admin.'
     Route::put('game/update/{id}', [GameController::class, 'updategame'])->name('game.update');
     Route::delete('game/delete/{id}', [GameController::class, 'deletegame'])->name('game.delete');   
     
+    // faq
+    Route::get('faq', [FaQController::class,'indexfaq'])->name('faq.index');
+    Route::get('faq/create', [FaQController::class, 'createfaq'])->name('faq.create');
+    Route::post('faq/store', [FaQController::class, 'storefaq'])->name('faq.store');
+    Route::get('faq/edit/{id}', [FaQController::class, 'editfaq'])->name('faq.edit'); 
+    Route::put('faq/update/{id}', [FaQController::class, 'updatefaq'])->name('faq.update');
+    Route::delete('faq/delete/{id}', [FaQController::class, 'deletefaq'])->name('faq.delete'); 
 
     // tournamnent
     Route::get('/tour', [TournamentController::class, 'indextour'])->name('tour.index');

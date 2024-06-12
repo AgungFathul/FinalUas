@@ -101,7 +101,7 @@ class GuestController extends Controller
 
         Mail::to($request->email)->send(new ResetPasswordMail($token));
 
-        return redirect()->route('forgotpassword')->with('success','Kami telah mengirimkan link reset password ke email anda');
+        return redirect()->route('guest.forgotpassword')->with('success','Kami telah mengirimkan link reset password ke email anda');
     }
 
     public function validasiforgotpassword(Request $request, $token)

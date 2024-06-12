@@ -12,6 +12,7 @@
                 <li><a href="tournament.html">Tournament</a></li>
                 <li><a href="main-blog.html">Blog</a></li>
                 <li><a href="contact.html">Contact</a></li>
+                <li><a href="FAQ.html">FAQ</a></li>
             </ul>
             <div class="footer-legal">
                 <p>&copy; 2024 GASLogin. All rights reserved.</p>

@@ -53,17 +53,27 @@ class StandingController extends Controller
         //     return redirect()->route('guest.login');
         // }
 
-        $validatedData = $request->validate([
-            'win' => 'required|integer|min:0',
-            'lose' => 'required|integer|min:0',
-        ]);
+        // $validatedData = $request->validate([
+        //     'win' => 'required|integer|min:0',
+        //     'lose' => 'required|integer|min:0',
+        // ]);
+
+        $win = $request->win;
+        $lose = $request->lose;
+
+        try {
+            DB::statement("CALL validate_win_lose($win, $lose)");
+
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', $e->getMessage());
+        }
 
         // $totalMatches = $validatedData['win'] + $validatedData['lose'];
         // $winRate = $totalMatches > 0 ? round(($validatedData['win'] / $totalMatches) * 100) : 0;
 
         $standing->update([
-            'win' => $validatedData['win'],
-            'lose' => $validatedData['lose'],
+            'win' => $win['win'],
+            'lose' => $lose['lose'],
             // 'wr' => $winRate,
         ]);
 

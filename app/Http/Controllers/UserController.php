@@ -25,6 +25,11 @@ class UserController extends Controller
         return redirect()->route('guest.login')->with('success', 'Kamu berhasil logout');
     }
 
+    public function chat()
+    {
+        return view('frontend.chatadmin');
+    }
+
 
 
 }
