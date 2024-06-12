@@ -50,11 +50,11 @@ class User extends Authenticatable
     }
 
     public function tournament()
-{
-    return $this->belongsTo(Tournament::class);
-}
-public function comments()
-{
-    return $this->hasMany(Comment::class);
-}
+    {
+        return $this->belongsTo(Tournament::class);
+    }
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
 }

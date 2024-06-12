@@ -167,7 +167,7 @@
                   </div>
                   <div class="card-body">
                       <h3 class="tournament-name">{{ $tournament->nama }}</h3>
-                      <p class="tournament-detail">Mulai: {{ \Carbon\Carbon::parse($tournament->start_date)->format('d M Y') }}</p>
+                      <p class="tournament-detail">Mulai: {{ \Carbon\Carbon::parse($tournament->jadwal_mulai)->format('d M Y') }}</p>
                   </div>
               </div>
           </a>

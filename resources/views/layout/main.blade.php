@@ -61,7 +61,7 @@
                             class="fas fa-bars"></i></a>
                 </li>
                 <li class="nav-item d-none d-sm-inline-block">
-                    <a href="{{ Auth::check() && Auth::user()->hasRole('pengguna_biasa') ? route('home') : route('admin.dashboard') }}" class="nav-link">Home</a>
+                    <a href="{{ Auth::check() && Auth::user()->hasRole('pengguna_biasa') ? route('home') : route('home') }}" class="nav-link">Home</a>
                 </li>
             </ul>
 

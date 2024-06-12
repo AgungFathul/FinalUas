@@ -90,11 +90,19 @@
         @endguest
     
         @auth
-        <a href="{{ route('pengguna_biasa.tour.index') }}">
-        <button class="search">
-          <ion-icon name="people-outline"></ion-icon>
-          </button>
+        @if(Auth::user()->hasRole('admin'))
+        <a href="{{ route('admin.dashboard') }}">
+            <button class="search">
+                <ion-icon name="people-outline"></ion-icon>
+            </button>
         </a>
+        @elseif(Auth::user()->hasRole('pengguna_biasa'))
+            <a href="{{ route('pengguna_biasa.tour.index') }}">
+                <button class="search">
+                    <ion-icon name="people-outline"></ion-icon>
+                </button>
+            </a>
+        @endif
         <a href="{{ route('logoutuser') }}"
            onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
             <button class="btn-sign_in">
